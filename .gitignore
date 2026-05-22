@@ -1,0 +1,41 @@
+# Virtual Environments
+.venv/
+venv/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment Files
+.env
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# AI Models
+models/
+*.gguf
+
+# Generated Data
+08_OUTPUTS/temp/
+08_OUTPUTS/generated/
+
+# Knowledge Embeddings
+05_KNOWLEDGE/embeddings/
+
+# Backups
+09_BACKUPS/archives/
+
+# Database Files
+*.db
+*.sqlite3
