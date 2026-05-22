@@ -25,19 +25,19 @@ Create the official Hexforge project structure, documentation system, roadmap, a
 # Current Development Status
 
 ## Current Phase
-Phase 1 - Development Environment Setup
+Phase 2 - Core System Architecture
 
 ## Current Goal
-Establish the core Hexforge software foundation, bootstrap systems, environment configuration, logging, and validation architecture.
+Build the foundational orchestration, routing, memory, research, model abstraction, and persistence systems required for future AI workflow integration.
 
 ## Current Task
-Phase 1.10 - Phase 1 Completion Checkpoint
+Phase 2.10 - Core Persistence Architecture
 
 ## Last Completed Task
-Phase 1.9 - Bootstrap Test Script
+Phase 2.9 - Task Router
 
 ## Next Task
-Phase 2.1 - Create Core Application Controller
+Phase 3.1 - Persistent Memory Integration
 
 ---
 
@@ -72,6 +72,24 @@ Phase 2.1 - Create Core Application Controller
 - Workflow continuation template
 - Preproduction architecture documents
 
+## Core Architecture
+- Core application controller
+- Service manager
+- Event system
+- Task queue system
+- Task routing system
+
+## AI Infrastructure
+- Memory manager
+- Knowledge manager
+- Research manager
+- Model manager
+
+## Persistence
+- JSON persistence manager
+- Automatic persistence folder generation
+- Basic save/load validation
+
 ---
 
 # Active Rules
@@ -82,6 +100,11 @@ Phase 2.1 - Create Core Application Controller
 - Keep systems modular
 - Avoid premature feature expansion
 - Foundation stability takes priority over advanced functionality
+- Update `current_status.md` only during:
+  - `.10` checkpoint completion
+  - thread switching
+  - ending work for the day
+  - major architectural decisions
 
 ---
 
@@ -92,29 +115,50 @@ Phase 2.1 - Create Core Application Controller
 - Overengineering too early
 - Feature expansion before core stability
 - AI memory architecture becoming too complex too quickly
+- Premature autonomous behavior implementation
 
 ---
 
 # Current Known Issues
 
 - No active issues currently detected
-- Core systems remain bootstrap-only
-- No active AI reasoning systems implemented yet
+- Persistence currently uses JSON only
+- No database layer implemented yet
+- No vector memory system implemented yet
+- No live model inference connected yet
 
 ---
 
 # Immediate Next Objectives
 
-## Phase 2 - Core System Architecture
+## Phase 3 - Persistent Cognitive Systems
 
 Upcoming systems:
-- Core application controller
-- Service manager
-- Memory manager
-- Knowledge ingestion pipeline
-- Research controller
-- Model abstraction layer
-- Task routing system
+- Persistent memory integration
+- Persistent knowledge storage
+- Persistent research queues
+- Session restoration
+- State recovery
+- Memory serialization workflows
+- Knowledge ingestion persistence
+
+---
+
+# Current Architectural State
+
+Hexforge currently supports:
+
+- Application lifecycle management
+- Service orchestration
+- Internal event broadcasting
+- Task queue processing
+- Task routing
+- Modular subsystem management
+- In-memory memory handling
+- Structured knowledge handling
+- Research request management
+- Model abstraction management
+- JSON-based persistence
 
 ---
 
