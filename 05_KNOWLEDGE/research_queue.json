@@ -1,14 +1,8 @@
 [
     {
-        "topic": "Python Best Practices",
+        "topic": "AI orchestration systems",
         "source": "approved_sources.md",
         "priority": "high",
-        "status": "queued"
-    },
-    {
-        "topic": "Unity ECS",
-        "source": "approved_sources.md",
-        "priority": "normal",
         "status": "queued"
     }
 ]
