@@ -65,3 +65,10 @@ class StateManager:
         )
 
         return True
+    
+    def get_state_summary(self) -> dict:
+        return {
+            "memory_count": self.memory_manager.get_memory_count(),
+            "knowledge_count": self.knowledge_manager.get_knowledge_count(),
+            "research_count": self.research_manager.get_research_count(),
+        }
