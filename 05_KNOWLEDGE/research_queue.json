@@ -1,0 +1,14 @@
+[
+    {
+        "topic": "Python Best Practices",
+        "source": "approved_sources.md",
+        "priority": "high",
+        "status": "queued"
+    },
+    {
+        "topic": "Unity ECS",
+        "source": "approved_sources.md",
+        "priority": "normal",
+        "status": "queued"
+    }
+]

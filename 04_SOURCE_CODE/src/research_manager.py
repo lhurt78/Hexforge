@@ -4,10 +4,23 @@ from logger import (
     log_warning,
 )
 
+from persistence_manager import (
+    PersistenceManager
+)
+
+from constants import PROJECT_FOLDERS
+
 
 class ResearchManager:
     def __init__(self) -> None:
         self.research_topics: list[dict] = []
+
+        self.persistence = PersistenceManager()
+
+        self.research_file = (
+            PROJECT_FOLDERS["knowledge"]
+            / "research_queue.json"
+        )
 
     def add_research_topic(
         self,
@@ -51,6 +64,28 @@ class ResearchManager:
         )
 
         return False
+
+    def save_research_queue(self) -> bool:
+        return self.persistence.save_json(
+            self.research_file,
+            self.research_topics
+        )
+
+    def load_research_queue(self) -> bool:
+        data = self.persistence.load_json(
+            self.research_file
+        )
+
+        if data is None:
+            return False
+
+        self.research_topics = data
+
+        log_success(
+            "Research queue loaded."
+        )
+
+        return True
 
     def get_research_topics(self) -> list[dict]:
         return self.research_topics
