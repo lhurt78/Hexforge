@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 from logger import (
     log_info,
@@ -144,3 +145,57 @@ class StateManager:
             )
 
         return success
+    
+    def restore_state_snapshot(
+        self,
+        snapshot_path: Path
+    ) -> bool:
+
+        log_info(
+            f"Restoring snapshot: {snapshot_path}"
+        )
+
+        memory_data = (
+            self.memory_manager
+            .persistence
+            .load_json(
+                snapshot_path / "memory_store.json"
+            )
+        )
+
+        knowledge_data = (
+            self.knowledge_manager
+            .persistence
+            .load_json(
+                snapshot_path / "knowledge_store.json"
+            )
+        )
+
+        research_data = (
+            self.research_manager
+            .persistence
+            .load_json(
+                snapshot_path / "research_queue.json"
+            )
+        )
+
+        if memory_data is not None:
+            self.memory_manager.memories = (
+                memory_data
+            )
+
+        if knowledge_data is not None:
+            self.knowledge_manager.knowledge_base = (
+                knowledge_data
+            )
+
+        if research_data is not None:
+            self.research_manager.research_topics = (
+                research_data
+            )
+
+        log_success(
+            "Snapshot restored successfully."
+        )
+
+        return True
