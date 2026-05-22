@@ -4,10 +4,23 @@ from logger import (
     log_warning,
 )
 
+from persistence_manager import (
+    PersistenceManager
+)
+
+from constants import PROJECT_FOLDERS
+
 
 class KnowledgeManager:
     def __init__(self) -> None:
         self.knowledge_base: dict[str, dict] = {}
+
+        self.persistence = PersistenceManager()
+
+        self.knowledge_file = (
+            PROJECT_FOLDERS["knowledge"]
+            / "knowledge_store.json"
+        )
 
     def add_knowledge(
         self,
@@ -57,6 +70,28 @@ class KnowledgeManager:
 
         log_success(
             f"Knowledge removed: {topic}"
+        )
+
+        return True
+
+    def save_knowledge(self) -> bool:
+        return self.persistence.save_json(
+            self.knowledge_file,
+            self.knowledge_base
+        )
+
+    def load_knowledge(self) -> bool:
+        data = self.persistence.load_json(
+            self.knowledge_file
+        )
+
+        if data is None:
+            return False
+
+        self.knowledge_base = data
+
+        log_success(
+            "Knowledge store loaded."
         )
 
         return True
