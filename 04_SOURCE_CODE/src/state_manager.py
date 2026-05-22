@@ -58,6 +58,16 @@ class StateManager:
 
         return success
 
+    def autosave_state(self) -> bool:
+        log_info("Autosaving system state...")
+
+        success = self.save_all_state()
+
+        if success:
+            log_success("Autosave completed successfully.")
+
+        return success
+    
     def load_all_state(self) -> bool:
         log_info("Loading all system state...")
 
