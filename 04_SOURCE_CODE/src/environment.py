@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 
+from constants import PROJECT_FOLDERS
 from logger import log_info, log_success, log_warning
 
 
@@ -23,27 +24,13 @@ def validate_python_version() -> bool:
 
 
 def validate_required_folders() -> bool:
-    root = get_project_root()
-
-    required_folders = [
-        "00_PROJECT_CONTROL",
-        "01_PREPRODUCTION",
-        "02_ARCHITECTURE",
-        "03_DEVELOPMENT",
-        "04_SOURCE_CODE",
-        "05_KNOWLEDGE",
-        "06_PROJECT_MEMORY",
-        "07_TESTING",
-        "08_OUTPUTS",
-        "09_BACKUPS",
-    ]
+    required_folders = PROJECT_FOLDERS.values()
 
     missing = []
 
-    for folder in required_folders:
-        folder_path = root / folder
+    for folder_path in required_folders:
         if not folder_path.exists():
-            missing.append(folder)
+            missing.append(folder_path.name)
 
     if missing:
         log_warning(f"Missing folders: {missing}")
