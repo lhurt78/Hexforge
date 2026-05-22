@@ -25,19 +25,19 @@ Create the official Hexforge project structure, documentation system, roadmap, a
 # Current Development Status
 
 ## Current Phase
-Phase 2 - Core System Architecture
+Phase 3 - Persistent Cognitive Systems
 
 ## Current Goal
-Build the foundational orchestration, routing, memory, research, model abstraction, and persistence systems required for future AI workflow integration.
+Build persistent memory, knowledge, research, recovery, autosave, and snapshot systems to establish recoverable cognitive continuity across runtime sessions.
 
 ## Current Task
-Phase 2.10 - Core Persistence Architecture
+Phase 3.10 - Phase 3 Completion Checkpoint
 
 ## Last Completed Task
-Phase 2.9 - Task Router
+Phase 3.9 - Autosave State Hook
 
 ## Next Task
-Phase 3.1 - Persistent Memory Integration
+Phase 4.1 - Integrated Runtime Systems
 
 ---
 
@@ -55,6 +55,7 @@ Phase 3.1 - Persistent Memory Integration
 - Module registry
 - Crash handling
 - Bootstrap test script
+- Automatic startup state recovery
 
 ## Configuration
 - `.env`
@@ -89,6 +90,14 @@ Phase 3.1 - Persistent Memory Integration
 - JSON persistence manager
 - Automatic persistence folder generation
 - Basic save/load validation
+- Persistent memory integration
+- Persistent knowledge integration
+- Persistent research queue
+- Unified state manager
+- State summary reporting
+- Snapshot backup system
+- Snapshot restore system
+- Autosave state hook
 
 ---
 
@@ -105,6 +114,10 @@ Phase 3.1 - Persistent Memory Integration
   - thread switching
   - ending work for the day
   - major architectural decisions
+- Future file modifications must specify:
+  - exact file
+  - exact insertion location
+  - exact action
 
 ---
 
@@ -126,21 +139,24 @@ Phase 3.1 - Persistent Memory Integration
 - No database layer implemented yet
 - No vector memory system implemented yet
 - No live model inference connected yet
+- No dependency injection system implemented yet
+- No asynchronous task execution implemented yet
 
 ---
 
 # Immediate Next Objectives
 
-## Phase 3 - Persistent Cognitive Systems
+## Phase 4 - Integrated Runtime Systems
 
 Upcoming systems:
-- Persistent memory integration
-- Persistent knowledge storage
-- Persistent research queues
-- Session restoration
-- State recovery
-- Memory serialization workflows
-- Knowledge ingestion persistence
+- Runtime subsystem integration
+- Manager communication pipelines
+- Event-driven orchestration
+- Runtime execution flow
+- Dependency coordination
+- Shared runtime context
+- Central runtime service registration
+- Execution lifecycle synchronization
 
 ---
 
@@ -159,6 +175,14 @@ Hexforge currently supports:
 - Research request management
 - Model abstraction management
 - JSON-based persistence
+- Persistent memory recovery
+- Persistent knowledge recovery
+- Persistent research recovery
+- Unified state loading
+- Snapshot backups
+- Snapshot restoration
+- Automatic startup recovery
+- Autosave operations
 
 ---
 
