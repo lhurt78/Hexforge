@@ -1,13 +1,28 @@
+from pathlib import Path
+
 from logger import (
     log_info,
     log_success,
     log_warning,
 )
 
+from persistence_manager import (
+    PersistenceManager
+)
+
+from constants import PROJECT_FOLDERS
+
 
 class MemoryManager:
     def __init__(self) -> None:
         self.memories: dict[str, str] = {}
+
+        self.persistence = PersistenceManager()
+
+        self.memory_file = (
+            PROJECT_FOLDERS["memory"]
+            / "memory_store.json"
+        )
 
     def store_memory(
         self,
@@ -53,6 +68,28 @@ class MemoryManager:
 
         log_success(
             f"Deleted memory: {key}"
+        )
+
+        return True
+
+    def save_memories(self) -> bool:
+        return self.persistence.save_json(
+            self.memory_file,
+            self.memories
+        )
+
+    def load_memories(self) -> bool:
+        data = self.persistence.load_json(
+            self.memory_file
+        )
+
+        if data is None:
+            return False
+
+        self.memories = data
+
+        log_success(
+            "Memory store loaded."
         )
 
         return True
