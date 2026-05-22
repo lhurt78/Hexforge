@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from logger import (
     log_info,
     log_success,
@@ -13,6 +15,10 @@ from knowledge_manager import (
 
 from research_manager import (
     ResearchManager
+)
+
+from constants import (
+    PROJECT_FOLDERS
 )
 
 
@@ -65,10 +71,76 @@ class StateManager:
         )
 
         return True
-    
+
     def get_state_summary(self) -> dict:
         return {
-            "memory_count": self.memory_manager.get_memory_count(),
-            "knowledge_count": self.knowledge_manager.get_knowledge_count(),
-            "research_count": self.research_manager.get_research_count(),
+            "memory_count": (
+                self.memory_manager
+                .get_memory_count()
+            ),
+            "knowledge_count": (
+                self.knowledge_manager
+                .get_knowledge_count()
+            ),
+            "research_count": (
+                self.research_manager
+                .get_research_count()
+            ),
         }
+
+    def create_state_snapshot(self) -> bool:
+        timestamp = datetime.now().strftime(
+            "%Y-%m-%d_%H-%M-%S"
+        )
+
+        snapshot_dir = (
+            PROJECT_FOLDERS["backups"]
+            / "snapshots"
+            / f"state_snapshot_{timestamp}"
+        )
+
+        snapshot_dir.mkdir(
+            parents=True,
+            exist_ok=True
+        )
+
+        memory_saved = (
+            self.memory_manager
+            .persistence
+            .save_json(
+                snapshot_dir / "memory_store.json",
+                self.memory_manager.memories
+            )
+        )
+
+        knowledge_saved = (
+            self.knowledge_manager
+            .persistence
+            .save_json(
+                snapshot_dir / "knowledge_store.json",
+                self.knowledge_manager.knowledge_base
+            )
+        )
+
+        research_saved = (
+            self.research_manager
+            .persistence
+            .save_json(
+                snapshot_dir / "research_queue.json",
+                self.research_manager.research_topics
+            )
+        )
+
+        success = all([
+            memory_saved,
+            knowledge_saved,
+            research_saved,
+        ])
+
+        if success:
+            log_success(
+                f"State snapshot created: "
+                f"{snapshot_dir}"
+            )
+
+        return success
