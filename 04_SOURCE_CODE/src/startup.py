@@ -22,7 +22,7 @@ def run_startup_sequence() -> bool:
         "startup_begin",
         on_startup_begin,
     )
-    
+
     event_system.subscribe(
         "startup_complete",
         on_startup_complete,
@@ -32,6 +32,23 @@ def run_startup_sequence() -> bool:
         "startup_failed",
         on_startup_failed,
     )
+
+    registered_events = (
+        event_system.get_registered_events()
+    )
+
+    for event_name in registered_events:
+        listener_count = (
+            event_system.get_listener_count(
+                event_name
+            )
+        )
+
+        log_info(
+            f"Registered Event -> "
+            f"{event_name} "
+            f"({listener_count} listeners)"
+        )
 
     event_system.emit(
         "startup_begin",

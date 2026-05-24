@@ -49,3 +49,15 @@ class EventSystem:
 
     def get_registered_events(self) -> list[str]:
         return list(self.listeners.keys())
+    
+    def get_listener_count(
+        self,
+        event_name: str
+    ) -> int:
+
+        return len(
+            self.listeners.get(
+                event_name,
+                []
+            )
+        )
