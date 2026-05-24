@@ -24,10 +24,15 @@ from constants import (
 
 
 class StateManager:
-    def __init__(self) -> None:
-        self.memory_manager = MemoryManager()
-        self.knowledge_manager = KnowledgeManager()
-        self.research_manager = ResearchManager()
+    def __init__(
+        self,
+        memory_manager: MemoryManager,
+        knowledge_manager: KnowledgeManager,
+        research_manager: ResearchManager,
+    ) -> None:
+        self.memory_manager = memory_manager
+        self.knowledge_manager = knowledge_manager
+        self.research_manager = research_manager
 
     def save_all_state(self) -> bool:
         log_info("Saving all system state...")

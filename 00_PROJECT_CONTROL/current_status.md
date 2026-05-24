@@ -25,84 +25,85 @@ Create the official Hexforge project structure, documentation system, roadmap, a
 # Current Development Status
 
 ## Current Phase
-Phase 3 - Persistent Cognitive Systems
+Phase 5 - Runtime Context Architecture
 
 ## Current Goal
-Build persistent memory, knowledge, research, recovery, autosave, and snapshot systems to establish recoverable cognitive continuity across runtime sessions.
+Plan future Hexforge runtime coordination, ownership boundaries, and scaling architecture without introducing premature implementation complexity.
 
 ## Current Task
-Phase 3.10 - Phase 3 Completion Checkpoint
+Phase 5.10 - Phase 5 Checkpoint
 
 ## Last Completed Task
-Phase 3.9 - Autosave State Hook
+Phase 5.9 - Runtime Evolution Strategy
 
 ## Next Task
-Phase 4.1 - Integrated Runtime Systems
+Phase 6.1 - Event System Verification
 
 ---
 
-# Completed Systems
+# Current Phase Workflow Structure
 
-## Environment
-- Python 3.12 virtual environment
-- Git repository initialized
-- `.gitignore` configured
-- Requirements system configured
+## Phase 5 Micro-Phase Structure
 
-## Bootstrap
-- Startup sequence
-- Environment validation
-- Module registry
-- Crash handling
-- Bootstrap test script
-- Automatic startup state recovery
+### 5.1
+Runtime Context Planning
 
-## Configuration
-- `.env`
-- `.env.example`
-- Centralized settings loader
-- Centralized constants
+### 5.2
+Runtime Context Boundary Mapping
 
-## Logging
-- Console logging
-- File logging
-- Timestamped log generation
+### 5.3
+Shared Runtime Dependency Planning
 
-## Documentation
-- Bootstrap status documentation
-- Workflow continuation template
-- Preproduction architecture documents
+### 5.4
+Event Coordination Planning
 
-## Core Architecture
-- Core application controller
-- Service manager
-- Event system
-- Task queue system
-- Task routing system
+### 5.5
+Async Runtime Evaluation
 
-## AI Infrastructure
-- Memory manager
-- Knowledge manager
-- Research manager
-- Model manager
+### 5.6
+Runtime Lifecycle Coordination
 
-## Persistence
-- JSON persistence manager
-- Automatic persistence folder generation
-- Basic save/load validation
-- Persistent memory integration
-- Persistent knowledge integration
-- Persistent research queue
-- Unified state manager
-- State summary reporting
-- Snapshot backup system
-- Snapshot restore system
-- Autosave state hook
+### 5.7
+Controlled Runtime Context Prototype Planning
+
+### 5.8
+Runtime Scaling Risk Assessment
+
+### 5.9
+Runtime Evolution Strategy
+
+### 5.10
+Phase 5 Checkpoint
 
 ---
 
-# Active Rules
+# Verified Runtime Workflow
 
+## Mandatory Workflow Order
+
+Every new thread must follow this order:
+
+1. Upload `current_status.md`
+2. Upload all active files for the current phase
+3. Verify physical project structure
+4. Verify runtime command
+5. Verify dependency ownership
+6. Verify startup flow
+7. Verify active architecture assumptions
+8. THEN begin modifications or refactors
+
+---
+
+# Development Workflow Rules
+
+- Never assume:
+  - file contents
+  - folder structure
+  - imports
+  - dependency ownership
+  - startup flow
+  - runtime flow
+- All runtime-critical assumptions must be verified directly from uploaded files before refactor instructions are given
 - Every major decision must be recorded in `decisions_log.md`
 - Every thread must end with a summary
 - Long threads should be stopped before context becomes unreliable
@@ -115,77 +116,77 @@ Phase 4.1 - Integrated Runtime Systems
   - ending work for the day
   - major architectural decisions
 - Future file modifications must specify:
-  - exact file
+  - exact physical file
   - exact insertion location
   - exact action
+- Every architectural refactor must begin with:
+  - file inspection
+  - dependency verification
+  - runtime verification
+- Refactors should never begin from assumptions alone
+- Runtime validation is required after:
+  - import changes
+  - constructor changes
+  - dependency injection changes
+  - startup flow changes
+  - persistence logic changes
+  - filesystem behavior changes
+  - manager ownership changes
+  - runtime orchestration changes
+  - async/event system changes
+  - actual runtime-affecting code changes
+- Runtime validation is usually NOT required after:
+  - documentation-only phases
+  - planning-only phases
+  - status updates
+  - architecture mapping
+  - comments/docstrings-only changes
 
 ---
 
-# Known Risks
+# Physical Project Structure
 
-- Scope creep
-- Context drift between threads
-- Overengineering too early
-- Feature expansion before core stability
-- AI memory architecture becoming too complex too quickly
-- Premature autonomous behavior implementation
+## Verified Physical Structure
 
----
+Project Root:
 
-# Current Known Issues
-
-- No active issues currently detected
-- Persistence currently uses JSON only
-- No database layer implemented yet
-- No vector memory system implemented yet
-- No live model inference connected yet
-- No dependency injection system implemented yet
-- No asynchronous task execution implemented yet
+`C:\Users\Lee\Desktop\Hexforge`
 
 ---
 
-# Immediate Next Objectives
+## Main Folder Structure
 
-## Phase 4 - Integrated Runtime Systems
-
-Upcoming systems:
-- Runtime subsystem integration
-- Manager communication pipelines
-- Event-driven orchestration
-- Runtime execution flow
-- Dependency coordination
-- Shared runtime context
-- Central runtime service registration
-- Execution lifecycle synchronization
-
----
-
-# Current Architectural State
-
-Hexforge currently supports:
-
-- Application lifecycle management
-- Service orchestration
-- Internal event broadcasting
-- Task queue processing
-- Task routing
-- Modular subsystem management
-- In-memory memory handling
-- Structured knowledge handling
-- Research request management
-- Model abstraction management
-- JSON-based persistence
-- Persistent memory recovery
-- Persistent knowledge recovery
-- Persistent research recovery
-- Unified state loading
-- Snapshot backups
-- Snapshot restoration
-- Automatic startup recovery
-- Autosave operations
-
----
-
-# Next Session Instruction
-
-Continue Hexforge development from the current documented state using the session continuation template.
+```txt
+Hexforge/
+│
+├── .venv/
+├── 00_PROJECT_CONTROL/
+├── 01_PREPRODUCTION/
+├── 02_ARCHITECTURE/
+├── 03_DEVELOPMENT/
+├── 04_SOURCE_CODE/
+│   └── src/
+│       ├── main.py
+│       ├── startup.py
+│       ├── app_controller.py
+│       ├── service_manager.py
+│       ├── state_manager.py
+│       ├── memory_manager.py
+│       ├── knowledge_manager.py
+│       ├── research_manager.py
+│       ├── persistence_manager.py
+│       ├── model_manager.py
+│       ├── task_router.py
+│       ├── event_system.py
+│       └── ...
+│
+├── 05_KNOWLEDGE/
+├── 06_PROJECT_MEMORY/
+├── 07_TESTING/
+├── 08_OUTPUTS/
+├── 09_BACKUPS/
+├── docs/
+├── .env
+├── .env.example
+├── .gitignore
+└── requirements.txt

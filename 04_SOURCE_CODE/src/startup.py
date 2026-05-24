@@ -2,6 +2,9 @@ from config_loader import load_environment_config
 from environment import validate_python_version, validate_required_folders
 from logger import log_info, log_success, log_error
 from module_registry import ModuleRegistry
+from memory_manager import MemoryManager
+from knowledge_manager import KnowledgeManager
+from research_manager import ResearchManager
 from state_manager import StateManager
 
 
@@ -20,7 +23,16 @@ def run_startup_sequence() -> bool:
     registry.register("testing_system", "planned")
     registry.validate_registry()
 
-    state_manager = StateManager()
+    memory_manager = MemoryManager()
+    knowledge_manager = KnowledgeManager()
+    research_manager = ResearchManager()
+
+    state_manager = StateManager(
+        memory_manager=memory_manager,
+        knowledge_manager=knowledge_manager,
+        research_manager=research_manager,
+    )
+
     state_manager.load_all_state()
 
     summary = state_manager.get_state_summary()
