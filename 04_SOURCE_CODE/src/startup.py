@@ -6,10 +6,39 @@ from memory_manager import MemoryManager
 from knowledge_manager import KnowledgeManager
 from research_manager import ResearchManager
 from state_manager import StateManager
-
+from event_system import EventSystem
+from runtime_events import (
+    on_startup_begin,
+    on_startup_complete,
+    on_startup_failed,
+)
 
 def run_startup_sequence() -> bool:
     log_info("Starting Hexforge bootstrap sequence...")
+
+    event_system = EventSystem()
+
+    event_system.subscribe(
+        "startup_begin",
+        on_startup_begin,
+    )
+    
+    event_system.subscribe(
+        "startup_complete",
+        on_startup_complete,
+    )
+
+    event_system.subscribe(
+        "startup_failed",
+        on_startup_failed,
+    )
+
+    event_system.emit(
+        "startup_begin",
+        {
+            "status": "starting"
+        }
+    )
 
     load_environment_config()
 
@@ -45,8 +74,22 @@ def run_startup_sequence() -> bool:
     )
 
     if not python_ok or not folders_ok:
+        event_system.emit(
+            "startup_failed",
+            {
+                "status": "failed"
+            }
+        )
+
         log_error("Bootstrap validation failed.")
         return False
+
+    event_system.emit(
+        "startup_complete",
+        {
+            "status": "ready"
+        }
+    )
 
     log_success("Hexforge bootstrap completed successfully.")
     return True
