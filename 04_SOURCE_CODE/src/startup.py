@@ -192,10 +192,6 @@ def run_startup_sequence() -> bool:
         "status_check",
     )
 
-    task_router.resolve_route(
-        "unknown_task",
-    )
-
     service_manager = ServiceManager(
         event_system=event_system,
     )
@@ -211,14 +207,6 @@ def run_startup_sequence() -> bool:
 
     service_manager.stop_service(
         "runtime_status",
-    )
-
-    service_manager.start_service(
-        "unknown_service",
-    )
-
-    service_manager.stop_service(
-        "unknown_service",
     )
 
     memory_manager = MemoryManager()
