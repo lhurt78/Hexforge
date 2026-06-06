@@ -7,7 +7,8 @@ def on_startup_begin(data: dict) -> None:
     log_info(
         f"Runtime event received: startup_begin ({status})"
     )
-    
+
+
 def on_startup_complete(data: dict) -> None:
     status = data.get("status", "unknown")
 
@@ -15,9 +16,19 @@ def on_startup_complete(data: dict) -> None:
         f"Runtime event received: startup_complete ({status})"
     )
 
+
 def on_startup_failed(data: dict) -> None:
     status = data.get("status", "unknown")
 
     log_info(
         f"Runtime event received: startup_failed ({status})"
+    )
+
+
+def on_state_loaded(data: dict) -> None:
+    log_info(
+        f"Runtime event received: state_loaded "
+        f"(Memory: {data.get('memory_count', 0)} | "
+        f"Knowledge: {data.get('knowledge_count', 0)} | "
+        f"Research: {data.get('research_count', 0)})"
     )

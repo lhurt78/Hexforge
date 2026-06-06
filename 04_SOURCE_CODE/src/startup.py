@@ -11,6 +11,7 @@ from runtime_events import (
     on_startup_begin,
     on_startup_complete,
     on_startup_failed,
+    on_state_loaded,
 )
 
 def run_startup_sequence() -> bool:
@@ -33,6 +34,11 @@ def run_startup_sequence() -> bool:
         on_startup_failed,
     )
 
+    event_system.subscribe(
+        "state_loaded",
+        on_state_loaded,
+    )
+    
     registered_events = (
         event_system.get_registered_events()
     )
@@ -77,6 +83,7 @@ def run_startup_sequence() -> bool:
         memory_manager=memory_manager,
         knowledge_manager=knowledge_manager,
         research_manager=research_manager,
+        event_system=event_system,
     )
 
     state_manager.load_all_state()

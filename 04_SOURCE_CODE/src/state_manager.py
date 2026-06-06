@@ -1,5 +1,6 @@
 from datetime import datetime
 from pathlib import Path
+from event_system import EventSystem
 
 from logger import (
     log_info,
@@ -29,11 +30,13 @@ class StateManager:
         memory_manager: MemoryManager,
         knowledge_manager: KnowledgeManager,
         research_manager: ResearchManager,
+        event_system: EventSystem,
     ) -> None:
         self.memory_manager = memory_manager
         self.knowledge_manager = knowledge_manager
         self.research_manager = research_manager
-
+        self.event_system = event_system
+        
     def save_all_state(self) -> bool:
         log_info("Saving all system state...")
 
