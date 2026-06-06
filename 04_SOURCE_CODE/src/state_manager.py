@@ -213,6 +213,13 @@ class StateManager:
             f"Restoring snapshot: {snapshot_path}"
         )
 
+        self.event_system.emit(
+            "state_restore_started",
+            {
+                "snapshot_path": str(snapshot_path)
+            }
+        )
+
         memory_data = (
             self.memory_manager
             .persistence
@@ -252,8 +259,17 @@ class StateManager:
                 research_data
             )
 
+        self.event_system.emit(
+            "state_restore_complete",
+            {
+                "snapshot_path": str(snapshot_path)
+            }
+        )
+
         log_success(
             "Snapshot restored successfully."
         )
 
+        # If execution reached this point,
+        # restoration completed successfully.
         return True

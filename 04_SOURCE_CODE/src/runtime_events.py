@@ -68,3 +68,16 @@ def on_state_snapshot_failed(data: dict) -> None:
         f"Runtime event received: state_snapshot_failed "
         f"({data.get('snapshot_path', 'unknown')})"
     )
+
+def on_state_restore_started(data: dict) -> None:
+    log_info(
+        f"Runtime event received: state_restore_started "
+        f"({data.get('snapshot_path', 'unknown')})"
+    )
+
+
+def on_state_restore_complete(data: dict) -> None:
+    log_info(
+        f"Runtime event received: state_restore_complete "
+        f"({data.get('snapshot_path', 'unknown')})"
+    )

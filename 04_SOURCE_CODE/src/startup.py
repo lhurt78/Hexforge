@@ -18,6 +18,8 @@ from runtime_events import (
     on_state_snapshot_started,
     on_state_snapshot_complete,
     on_state_snapshot_failed,
+    on_state_restore_started,
+    on_state_restore_complete,
 )
 
 def run_startup_sequence() -> bool:
@@ -75,6 +77,16 @@ def run_startup_sequence() -> bool:
         on_state_snapshot_failed,
     )
 
+    event_system.subscribe(
+        "state_restore_started",
+        on_state_restore_started,
+    )
+
+    event_system.subscribe(
+        "state_restore_complete",
+        on_state_restore_complete,
+    )
+    
     registered_events = (
         event_system.get_registered_events()
     )
