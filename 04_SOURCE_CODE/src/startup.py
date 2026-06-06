@@ -209,6 +209,23 @@ def run_startup_sequence() -> bool:
         "runtime_status",
     )
 
+    log_info("Runtime coordination summary:")
+
+    log_info(
+        f"Registered events: "
+        f"{len(event_system.get_registered_events())}"
+    )
+
+    log_info(
+        f"Task routes: "
+        f"{task_router.get_routes()}"
+    )
+
+    log_info(
+        f"Service statuses: "
+        f"{service_manager.get_services()}"
+    )
+
     memory_manager = MemoryManager()
     knowledge_manager = KnowledgeManager()
     research_manager = ResearchManager()
