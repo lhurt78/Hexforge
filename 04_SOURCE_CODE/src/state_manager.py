@@ -244,6 +244,22 @@ class StateManager:
             )
         )
 
+        restore_success = any([
+            memory_data is not None,
+            knowledge_data is not None,
+            research_data is not None,
+        ])
+
+        if not restore_success:
+            self.event_system.emit(
+                "state_restore_failed",
+                {
+                    "snapshot_path": str(snapshot_path)
+                }
+            )
+
+            return False
+
         if memory_data is not None:
             self.memory_manager.memories = (
                 memory_data
@@ -270,6 +286,4 @@ class StateManager:
             "Snapshot restored successfully."
         )
 
-        # If execution reached this point,
-        # restoration completed successfully.
         return True
