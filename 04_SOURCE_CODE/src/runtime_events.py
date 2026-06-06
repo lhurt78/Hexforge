@@ -32,3 +32,20 @@ def on_state_loaded(data: dict) -> None:
         f"Knowledge: {data.get('knowledge_count', 0)} | "
         f"Research: {data.get('research_count', 0)})"
     )
+
+def on_state_save_started(data: dict) -> None:
+    log_info(
+        "Runtime event received: state_save_started"
+    )
+
+
+def on_state_save_complete(data: dict) -> None:
+    log_info(
+        "Runtime event received: state_save_complete"
+    )
+
+
+def on_state_save_failed(data: dict) -> None:
+    log_info(
+        "Runtime event received: state_save_failed"
+    )

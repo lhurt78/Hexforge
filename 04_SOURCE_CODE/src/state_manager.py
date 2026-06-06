@@ -36,9 +36,14 @@ class StateManager:
         self.knowledge_manager = knowledge_manager
         self.research_manager = research_manager
         self.event_system = event_system
-        
+
     def save_all_state(self) -> bool:
         log_info("Saving all system state...")
+
+        self.event_system.emit(
+            "state_save_started",
+            {}
+        )
 
         memory_saved = (
             self.memory_manager.save_memories()
@@ -60,8 +65,19 @@ class StateManager:
         ])
 
         if success:
+            self.event_system.emit(
+                "state_save_complete",
+                {}
+            )
+
             log_success(
                 "All state saved successfully."
+            )
+
+            if not success:
+                self.event_system.emit(
+                    "state_save_failed",
+                    {}
             )
 
         return success
@@ -87,6 +103,11 @@ class StateManager:
 
         log_success(
             "All available state loaded."
+        )
+
+        self.event_system.emit(
+            "state_loaded",
+            self.get_state_summary(),
         )
 
         return True

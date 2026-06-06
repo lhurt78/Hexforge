@@ -12,6 +12,9 @@ from runtime_events import (
     on_startup_complete,
     on_startup_failed,
     on_state_loaded,
+    on_state_save_started,
+    on_state_save_complete,
+    on_state_save_failed,
 )
 
 def run_startup_sequence() -> bool:
@@ -39,6 +42,21 @@ def run_startup_sequence() -> bool:
         on_state_loaded,
     )
     
+    event_system.subscribe(
+        "state_save_started",
+        on_state_save_started,
+    )
+
+    event_system.subscribe(
+        "state_save_complete",
+        on_state_save_complete,
+    )
+
+    event_system.subscribe(
+        "state_save_failed",
+        on_state_save_failed,
+    )
+
     registered_events = (
         event_system.get_registered_events()
     )
