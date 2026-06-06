@@ -8,6 +8,7 @@ from research_manager import ResearchManager
 from state_manager import StateManager
 from event_system import EventSystem
 from task_router import TaskRouter
+from service_manager import ServiceManager
 from runtime_events import (
     on_startup_begin,
     on_startup_complete,
@@ -25,6 +26,11 @@ from runtime_events import (
     on_task_route_registered,
     on_task_route_resolved,
     on_task_route_missing,
+    on_service_registered,
+    on_service_started,
+    on_service_stopped,
+    on_service_start_failed,
+    on_service_stop_failed,
 )
 
 def run_startup_sequence() -> bool:
@@ -112,6 +118,31 @@ def run_startup_sequence() -> bool:
         on_task_route_missing,
     )
 
+    event_system.subscribe(
+        "service_registered",
+        on_service_registered,
+    )
+
+    event_system.subscribe(
+        "service_started",
+        on_service_started,
+    )
+
+    event_system.subscribe(
+        "service_stopped",
+        on_service_stopped,
+    )
+
+    event_system.subscribe(
+        "service_start_failed",
+        on_service_start_failed,
+    )
+
+    event_system.subscribe(
+        "service_stop_failed",
+        on_service_stop_failed,
+    )
+
     registered_events = (
         event_system.get_registered_events()
     )
@@ -147,6 +178,48 @@ def run_startup_sequence() -> bool:
     registry.register("research_system", "planned")
     registry.register("testing_system", "planned")
     registry.validate_registry()
+
+    task_router = TaskRouter(
+        event_system=event_system,
+    )
+
+    task_router.register_route(
+        "status_check",
+        "status_handler",
+    )
+
+    task_router.resolve_route(
+        "status_check",
+    )
+
+    task_router.resolve_route(
+        "unknown_task",
+    )
+
+    service_manager = ServiceManager(
+        event_system=event_system,
+    )
+
+    service_manager.register_service(
+        "runtime_status",
+        "offline",
+    )
+
+    service_manager.start_service(
+        "runtime_status",
+    )
+
+    service_manager.stop_service(
+        "runtime_status",
+    )
+
+    service_manager.start_service(
+        "unknown_service",
+    )
+
+    service_manager.stop_service(
+        "unknown_service",
+    )
 
     memory_manager = MemoryManager()
     knowledge_manager = KnowledgeManager()
