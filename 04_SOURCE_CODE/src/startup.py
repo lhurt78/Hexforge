@@ -28,6 +28,9 @@ from runtime_events import (
     on_task_route_registered,
     on_task_route_resolved,
     on_task_route_missing,
+    on_task_execution_started,
+    on_task_execution_completed,
+    on_task_execution_failed,
     on_service_registered,
     on_service_started,
     on_service_stopped,
@@ -121,6 +124,21 @@ def run_startup_sequence() -> bool:
     )
 
     event_system.subscribe(
+    "task_execution_started",
+    on_task_execution_started,
+    )
+
+    event_system.subscribe(
+        "task_execution_completed",
+        on_task_execution_completed,
+    )
+
+    event_system.subscribe(
+        "task_execution_failed",
+        on_task_execution_failed,
+    )
+
+    event_system.subscribe(
         "service_registered",
         on_service_registered,
     )
@@ -190,6 +208,7 @@ def run_startup_sequence() -> bool:
     task_executor = TaskExecutor(
         task_router=task_router,
         handler_registry=handler_registry,
+        event_system=event_system,
     )
 
     service_manager = ServiceManager(

@@ -42,8 +42,9 @@ event_system = EventSystem()
 task_router = TaskRouter(event_system)
 handler_registry = HandlerRegistry()
 task_executor = TaskExecutor(
-    task_router,
-    handler_registry,
+    task_router=task_router,
+    handler_registry=handler_registry,
+    event_system=event_system,
 )
 
 handler_registry.register_handler(

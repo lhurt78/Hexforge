@@ -35,6 +35,7 @@ task_router.register_route(
 task_executor = TaskExecutor(
     task_router=task_router,
     handler_registry=handler_registry,
+    event_system=event_system,
 )
 
 task = Task(

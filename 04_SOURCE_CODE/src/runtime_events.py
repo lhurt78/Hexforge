@@ -110,6 +110,29 @@ def on_task_route_missing(data: dict) -> None:
         f"({data.get('task_type', 'unknown')})"
     )
 
+def on_task_execution_started(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_execution_started "
+        f"({data.get('task_type', 'unknown')} | "
+        f"{data.get('task_id', 'unknown')})"
+    )
+
+
+def on_task_execution_completed(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_execution_completed "
+        f"({data.get('task_type', 'unknown')} -> "
+        f"{data.get('handler_name', 'unknown')})"
+    )
+
+
+def on_task_execution_failed(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_execution_failed "
+        f"({data.get('task_type', 'unknown')} | "
+        f"{data.get('error', 'unknown')})"
+    )
+
 def on_service_registered(data: dict) -> None:
     log_info(
         f"Runtime event received: service_registered "
