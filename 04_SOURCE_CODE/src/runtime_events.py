@@ -87,3 +87,25 @@ def on_state_restore_failed(data: dict) -> None:
         f"Runtime event received: state_restore_failed "
         f"({data.get('snapshot_path', 'unknown')})"
     )
+
+def on_task_route_registered(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_route_registered "
+        f"({data.get('task_type', 'unknown')} -> "
+        f"{data.get('handler_name', 'unknown')})"
+    )
+
+
+def on_task_route_resolved(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_route_resolved "
+        f"({data.get('task_type', 'unknown')} -> "
+        f"{data.get('handler_name', 'unknown')})"
+    )
+
+
+def on_task_route_missing(data: dict) -> None:
+    log_info(
+        f"Runtime event received: task_route_missing "
+        f"({data.get('task_type', 'unknown')})"
+    )

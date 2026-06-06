@@ -7,6 +7,7 @@ from knowledge_manager import KnowledgeManager
 from research_manager import ResearchManager
 from state_manager import StateManager
 from event_system import EventSystem
+from task_router import TaskRouter
 from runtime_events import (
     on_startup_begin,
     on_startup_complete,
@@ -21,6 +22,9 @@ from runtime_events import (
     on_state_restore_started,
     on_state_restore_complete,
     on_state_restore_failed,
+    on_task_route_registered,
+    on_task_route_resolved,
+    on_task_route_missing,
 )
 
 def run_startup_sequence() -> bool:
@@ -91,6 +95,21 @@ def run_startup_sequence() -> bool:
     event_system.subscribe(
         "state_restore_failed",
         on_state_restore_failed,
+    )
+
+    event_system.subscribe(
+        "task_route_registered",
+        on_task_route_registered,
+    )
+
+    event_system.subscribe(
+        "task_route_resolved",
+        on_task_route_resolved,
+    )
+
+    event_system.subscribe(
+        "task_route_missing",
+        on_task_route_missing,
     )
 
     registered_events = (
