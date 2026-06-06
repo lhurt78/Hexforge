@@ -183,30 +183,8 @@ def run_startup_sequence() -> bool:
         event_system=event_system,
     )
 
-    task_router.register_route(
-        "status_check",
-        "status_handler",
-    )
-
-    task_router.resolve_route(
-        "status_check",
-    )
-
     service_manager = ServiceManager(
         event_system=event_system,
-    )
-
-    service_manager.register_service(
-        "runtime_status",
-        "offline",
-    )
-
-    service_manager.start_service(
-        "runtime_status",
-    )
-
-    service_manager.stop_service(
-        "runtime_status",
     )
 
     log_info("Runtime coordination summary:")
