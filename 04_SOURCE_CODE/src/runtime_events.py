@@ -49,3 +49,22 @@ def on_state_save_failed(data: dict) -> None:
     log_info(
         "Runtime event received: state_save_failed"
     )
+
+def on_state_snapshot_started(data: dict) -> None:
+    log_info(
+        "Runtime event received: state_snapshot_started"
+    )
+
+
+def on_state_snapshot_complete(data: dict) -> None:
+    log_info(
+        f"Runtime event received: state_snapshot_complete "
+        f"({data.get('snapshot_path', 'unknown')})"
+    )
+
+
+def on_state_snapshot_failed(data: dict) -> None:
+    log_info(
+        f"Runtime event received: state_snapshot_failed "
+        f"({data.get('snapshot_path', 'unknown')})"
+    )

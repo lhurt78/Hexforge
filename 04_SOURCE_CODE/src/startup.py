@@ -15,6 +15,9 @@ from runtime_events import (
     on_state_save_started,
     on_state_save_complete,
     on_state_save_failed,
+    on_state_snapshot_started,
+    on_state_snapshot_complete,
+    on_state_snapshot_failed,
 )
 
 def run_startup_sequence() -> bool:
@@ -55,6 +58,21 @@ def run_startup_sequence() -> bool:
     event_system.subscribe(
         "state_save_failed",
         on_state_save_failed,
+    )
+
+    event_system.subscribe(
+        "state_snapshot_started",
+        on_state_snapshot_started,
+    )
+
+    event_system.subscribe(
+        "state_snapshot_complete",
+        on_state_snapshot_complete,
+    )
+
+    event_system.subscribe(
+        "state_snapshot_failed",
+        on_state_snapshot_failed,
     )
 
     registered_events = (

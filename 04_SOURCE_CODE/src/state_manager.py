@@ -129,6 +129,10 @@ class StateManager:
         }
 
     def create_state_snapshot(self) -> bool:
+        self.event_system.emit(
+            "state_snapshot_started",
+            {}
+        )
         timestamp = datetime.now().strftime(
             "%Y-%m-%d_%H-%M-%S"
         )
@@ -178,9 +182,24 @@ class StateManager:
         ])
 
         if success:
+            self.event_system.emit(
+                "state_snapshot_complete",
+                {
+                    "snapshot_path": str(snapshot_dir)
+                }
+            )
+
             log_success(
                 f"State snapshot created: "
                 f"{snapshot_dir}"
+            )
+
+        if not success:
+            self.event_system.emit(
+                "state_snapshot_failed",
+                {
+                    "snapshot_path": str(snapshot_dir)
+                }
             )
 
         return success
