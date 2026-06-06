@@ -74,10 +74,10 @@ class StateManager:
                 "All state saved successfully."
             )
 
-            if not success:
-                self.event_system.emit(
-                    "state_save_failed",
-                    {}
+        if not success:
+            self.event_system.emit(
+                "state_save_failed",
+                {}
             )
 
         return success
