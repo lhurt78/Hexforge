@@ -43,8 +43,9 @@ class PlanningTaskHandler(TaskHandler):
             target_outcome=target_outcome, 
         )
 
-        overview = (
-            f"Planning goal categorized as {category}."
+        overview = self._build_overview(
+            goal=goal,
+            category=category,
         )
 
         constraints_summary = constraints.copy()
@@ -279,6 +280,15 @@ class PlanningTaskHandler(TaskHandler):
             category_steps["general"],
         )
 
+    def _build_overview(
+        self,
+        goal: str,
+        category: str,
+    ) -> str:
+        return (
+            f"{category.title()} planning request identified: {goal}"
+        )
+        
     def _build_planning_notes(
         self,
         scope: str | None,
