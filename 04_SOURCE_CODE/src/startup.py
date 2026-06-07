@@ -125,8 +125,8 @@ def run_startup_sequence() -> bool:
     )
 
     event_system.subscribe(
-    "task_execution_started",
-    on_task_execution_started,
+        "task_execution_started",
+        on_task_execution_started,
     )
 
     event_system.subscribe(
@@ -217,10 +217,10 @@ def run_startup_sequence() -> bool:
     )
 
     task_executor = TaskExecutor(
-    task_router=task_router,
-    handler_registry=handler_registry,
-    event_system=event_system,
-)
+        task_router=task_router,
+        handler_registry=handler_registry,
+        event_system=event_system,
+    )
 
     service_manager = ServiceManager(
         event_system=event_system,
