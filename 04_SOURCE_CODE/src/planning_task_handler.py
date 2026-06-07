@@ -290,7 +290,7 @@ class PlanningTaskHandler(TaskHandler):
         category: str,
     ) -> str:
         return (
-            f"{category.title()} planning request identified: {goal}"
+            f"{category.title()} planning request: {goal}"
         )
 
     def _build_constraints_summary(

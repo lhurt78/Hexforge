@@ -78,7 +78,7 @@ def run_planning_task(
     )
 
     assert result.data["overview"] == (
-        f"{expected_category.title()} planning request identified: {goal}"
+        f"{expected_category.title()} planning request: {goal}"
     )
 
     assert isinstance(result.data["recommended_steps"], list)

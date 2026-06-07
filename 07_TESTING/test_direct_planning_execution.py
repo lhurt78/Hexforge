@@ -80,9 +80,10 @@ assert result.data["goal"] == (
 
 assert result.data["category"] == "film"
 assert result.data["overview"] == (
-    "Film planning request identified: "
+    "Film planning request: "
     "Create a short film production plan."
 )
+
 assert result.data["scope"] == "15 minute horror short."
 assert result.data["priority"] == "high"
 assert result.data["target_outcome"] == (
