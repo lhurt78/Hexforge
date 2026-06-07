@@ -48,7 +48,9 @@ class PlanningTaskHandler(TaskHandler):
             category=category,
         )
 
-        constraints_summary = constraints.copy()
+        constraints_summary = self._build_constraints_summary(
+            constraints=constraints
+        )
 
         risks = self._build_risks(
             constraints=constraints,
@@ -290,7 +292,18 @@ class PlanningTaskHandler(TaskHandler):
         return (
             f"{category.title()} planning request identified: {goal}"
         )
-        
+
+    def _build_constraints_summary(
+        self,
+        constraints: list[str],
+    ) -> str:
+        if not constraints:
+            return "No constraints specified."
+
+        return (
+            f"{len(constraints)} constraints specified."
+        )
+
     def _build_planning_notes(
         self,
         scope: str | None,
