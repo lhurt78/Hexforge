@@ -92,6 +92,7 @@ def run_planning_task(
     ]
 
     assert len(result.data["recommended_steps"]) == 5
+    assert result.data["next_action"] == result.data["recommended_steps"][0]
     assert all(
         isinstance(step, str)
         and step.strip()

@@ -93,6 +93,10 @@ assert len(
     result.data["recommended_steps"]
 ) == 5
 
+assert result.data["next_action"] == (
+    "Define the central concept and intended audience reaction."
+)
+
 assert len(
     result.data["planning_notes"]
 ) == 4
