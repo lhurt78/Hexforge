@@ -22,23 +22,25 @@ It should be read together with:
 
 ## Current Phase
 
-Phase 11 - Controlled Planning Output Expansion
-
-## Current Task
-
-Phase 11.10 - Phase 11 Checkpoint
-
-## Last Completed Task
-
-Phase 11.9 - Planning Output Schema Validation
-
-## Next Phase
+## Current Phase
 
 Phase 12 - Controlled Planning Result Refinement
 
+## Current Task
+
+Phase 12.10 - Phase 12 Checkpoint
+
+## Last Completed Task
+
+Phase 12.9 - Clean Planning Handler Formatting
+
+## Next Phase
+
+Phase 13 - Planning Handler Stabilization
+
 ## Next Task
 
-Phase 12.1 - Evaluate Planning Output Refinement Targets
+Phase 13.1 - Evaluate Planning Output Consolidation
 
 ---
 
@@ -259,6 +261,28 @@ Planning output now supports:
 
 ---
 
+# Phase 12 Summary
+
+Completed:
+
+* constraints_summary refinement
+* planning_notes refinement
+* risks wording refinement
+* success_criteria wording refinement
+* planning_assumptions wording refinement
+* overview wording refinement
+* next_action extraction
+* planning handler cleanup
+
+Result:
+
+* planning output remains deterministic
+* planning output remains controlled
+* no persistence changes
+* no architecture changes
+* no autonomous behavior introduced
+* helper responsibility improved
+
 # Current Active Runtime Files
 
 ```txt
@@ -417,14 +441,16 @@ The following remain intentionally deferred:
 
 # Next Task
 
-## Phase 12.1 - Evaluate Planning Output Refinement Targets
+# Next Task
+
+## Phase 13.1 - Evaluate Planning Output Consolidation
 
 Purpose:
 
 * review current planning output structure
-* identify redundant planning fields
-* identify missing deterministic planning fields
-* preserve controlled planning behavior
+* identify remaining redundant planning fields
+* evaluate output consolidation opportunities
+* preserve deterministic planning behavior
 * avoid AI reasoning
 * avoid persistence changes
 * avoid architecture changes
