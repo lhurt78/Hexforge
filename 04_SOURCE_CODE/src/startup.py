@@ -10,6 +10,7 @@ from event_system import EventSystem
 from task_router import TaskRouter
 from handler_registry import HandlerRegistry
 from task_executor import TaskExecutor
+from planning_task_handler import PlanningTaskHandler
 from service_manager import ServiceManager
 from runtime_events import (
     on_startup_begin,
@@ -205,11 +206,21 @@ def run_startup_sequence() -> bool:
 
     handler_registry = HandlerRegistry()
 
-    task_executor = TaskExecutor(
-        task_router=task_router,
-        handler_registry=handler_registry,
-        event_system=event_system,
+    handler_registry.register_handler(
+        "planning_handler",
+        PlanningTaskHandler(),
     )
+
+    task_router.register_route(
+        "planning_task",
+        "planning_handler",
+    )
+
+    task_executor = TaskExecutor(
+    task_router=task_router,
+    handler_registry=handler_registry,
+    event_system=event_system,
+)
 
     service_manager = ServiceManager(
         event_system=event_system,
