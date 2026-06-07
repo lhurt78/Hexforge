@@ -85,9 +85,9 @@ def run_planning_task(
 
     assert isinstance(result.data["risks"], list)
     assert result.data["risks"] == [
-        "No constraints were specified.",
-        "Undefined scope may cause planning drift.",
-        "Missing target outcome may make success harder to verify.",
+        "Missing constraints may allow uncontrolled scope expansion.",
+        "Missing scope may cause planning drift.",
+        "Missing target outcome may make completion harder to verify.",
     ]
 
     assert result.data["constraints_summary"] == (

@@ -350,21 +350,21 @@ class PlanningTaskHandler(TaskHandler):
 
         if constraints:
             risks.append(
-                "Project constraints may limit execution options."
+                "Defined constraints may limit available execution options."
             )
         else:
             risks.append(
-                "No constraints were specified."
+                "Missing constraints may allow uncontrolled scope expansion."
             )
 
         if scope is None:
             risks.append(
-                "Undefined scope may cause planning drift."
+                "Missing scope may cause planning drift."
             )
 
         if target_outcome is None:
             risks.append(
-                "Missing target outcome may make success harder to verify."
+                "Missing target outcome may make completion harder to verify."
             )
 
         return risks

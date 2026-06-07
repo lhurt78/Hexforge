@@ -100,7 +100,7 @@ assert result.data["constraints_summary"] == (
 )
 
 assert result.data["risks"] == [
-    "Project constraints may limit execution options."
+    "Defined constraints may limit available execution options."
 ]
 
 assert len(
