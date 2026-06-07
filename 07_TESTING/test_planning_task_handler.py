@@ -38,20 +38,86 @@ task_executor = TaskExecutor(
     event_system=event_system,
 )
 
-task = Task(
-    task_type="planning_task",
-    payload={
-        "goal": "Create a short film production plan.",
-    },
-)
 
-result = task_executor.execute(task)
+def run_planning_task(
+    goal: str,
+    expected_category: str,
+) -> None:
+    task = Task(
+        task_type="planning_task",
+        payload={
+            "goal": goal,
+        },
+    )
 
-assert result.success is True
-assert result.message == "Planning task completed."
-assert result.data["goal"] == "Create a short film production plan."
-assert len(result.data["recommended_steps"]) == 5
-assert task.status == "completed"
+    result = task_executor.execute(task)
+
+    assert result.success is True
+    assert result.message == "Planning task completed."
+    assert result.data["goal"] == goal
+    assert result.data["category"] == expected_category, (
+        f"Expected category '{expected_category}' "
+        f"but got '{result.data['category']}' "
+        f"for goal: {goal}"
+    )
+    assert isinstance(result.data["recommended_steps"], list)
+    assert len(result.data["recommended_steps"]) == 5
+    assert all(
+        isinstance(step, str)
+        and step.strip()
+        for step in result.data["recommended_steps"]
+    )
+    assert task.status == "completed"
+
+
+test_cases = [
+    (
+        "Create a software utility.",
+        "software",
+    ),
+    (
+        "Write a Python script.",
+        "software",
+    ),
+    (
+        "Build a game prototype.",
+        "game",
+    ),
+    (
+        "Create a Unity demo.",
+        "game",
+    ),
+    (
+        "Create a short film production plan.",
+        "film",
+    ),
+    (
+        "Plan a movie scene.",
+        "film",
+    ),
+    (
+        "Write a novel outline.",
+        "writing",
+    ),
+    (
+        "Draft a story chapter.",
+        "writing",
+    ),
+    (
+        "Organize a community project.",
+        "general",
+    ),
+    (
+        "Plan a household cleanup.",
+        "general",
+    ),
+]
+
+for goal, expected_category in test_cases:
+    run_planning_task(
+        goal,
+        expected_category,
+    )
 
 missing_goal_task = Task(
     task_type="planning_task",
@@ -63,5 +129,18 @@ missing_goal_result = task_executor.execute(missing_goal_task)
 assert missing_goal_result.success is False
 assert missing_goal_result.error == "missing_goal"
 assert missing_goal_task.status == "failed"
+
+empty_goal_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "",
+    },
+)
+
+empty_goal_result = task_executor.execute(empty_goal_task)
+
+assert empty_goal_result.success is False
+assert empty_goal_result.error == "missing_goal"
+assert empty_goal_task.status == "failed"
 
 print("PlanningTaskHandler validation passed.")
