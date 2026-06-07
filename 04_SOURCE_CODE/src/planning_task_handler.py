@@ -375,18 +375,18 @@ class PlanningTaskHandler(TaskHandler):
         target_outcome: str | None,
     ) -> list[str]:
         criteria = [
-            "Planning goal has been documented.",
-            "Recommended execution steps have been generated.",
+            "The planning goal is clearly documented.",
+            "Recommended execution steps are available.",
         ]
 
         if scope:
             criteria.append(
-                "Project scope has been documented."
+                "Project scope is defined well enough to guide planning."
             )
 
         if target_outcome:
             criteria.append(
-                "Target outcome has been documented."
+                "Target outcome is defined well enough to verify completion."
             )
 
         return criteria

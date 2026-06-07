@@ -96,8 +96,8 @@ def run_planning_task(
 
     assert isinstance(result.data["success_criteria"], list)
     assert result.data["success_criteria"] == [
-        "Planning goal has been documented.",
-        "Recommended execution steps have been generated.",
+        "The planning goal is clearly documented.",
+        "Recommended execution steps are available.",
     ]
 
     assert isinstance(result.data["planning_assumptions"], list)

@@ -116,10 +116,10 @@ assert len(
 ) == 4
 
 assert result.data["success_criteria"] == [
-    "Planning goal has been documented.",
-    "Recommended execution steps have been generated.",
-    "Project scope has been documented.",
-    "Target outcome has been documented.",
+    "The planning goal is clearly documented.",
+    "Recommended execution steps are available.",
+    "Project scope is defined well enough to guide planning.",
+    "Target outcome is defined well enough to verify completion.",
 ]
 
 assert result.data["planning_assumptions"] == []
