@@ -59,6 +59,8 @@ class PlanningTaskHandler(TaskHandler):
 
         planning_assumptions = self._build_planning_assumptions(
             scope=scope,
+            constraints=constraints,
+            priority=priority,
             target_outcome=target_outcome,
         )
 
@@ -348,6 +350,8 @@ class PlanningTaskHandler(TaskHandler):
     def _build_planning_assumptions(
         self,
         scope: str | None,
+        constraints: list[str],
+        priority: str | None,
         target_outcome: str | None,
     ) -> list[str]:
         assumptions = []
@@ -355,6 +359,16 @@ class PlanningTaskHandler(TaskHandler):
         if scope is None:
             assumptions.append(
                 "Project scope was not provided."
+            )
+
+        if not constraints:
+            assumptions.append(
+                "Project constraints were not provided."
+            )
+
+        if priority is None:
+            assumptions.append(
+                "Project priority was not provided."
             )
 
         if target_outcome is None:
