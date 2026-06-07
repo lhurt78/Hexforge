@@ -54,6 +54,22 @@ def run_planning_task(
 
     assert result.success is True
     assert result.message == "Planning task completed."
+    assert set(result.data.keys()) == {
+    "overview",
+    "goal",
+    "category",
+    "scope",
+    "constraints",
+    "priority",
+    "target_outcome",
+    "recommended_steps",
+    "constraints_summary",
+    "risks",
+    "next_action",
+    "success_criteria",
+    "planning_assumptions",
+    "planning_notes",
+}
     assert result.data["goal"] == goal
     assert result.data["category"] == expected_category, (
         f"Expected category '{expected_category}' "

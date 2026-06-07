@@ -57,6 +57,22 @@ result = task_executor.execute(task)
 
 assert result.success is True
 assert result.message == "Planning task completed."
+assert set(result.data.keys()) == {
+    "overview",
+    "goal",
+    "category",
+    "scope",
+    "constraints",
+    "priority",
+    "target_outcome",
+    "recommended_steps",
+    "constraints_summary",
+    "risks",
+    "next_action",
+    "success_criteria",
+    "planning_assumptions",
+    "planning_notes",
+}
 
 assert result.data["goal"] == (
     "Create a short film production plan."
