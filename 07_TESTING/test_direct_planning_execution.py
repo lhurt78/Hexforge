@@ -79,6 +79,10 @@ assert result.data["constraints"] == [
     "One location.",
 ]
 
+assert result.data["risks"] == [
+    "Project constraints may limit execution options."
+]
+
 assert len(
     result.data["recommended_steps"]
 ) == 5

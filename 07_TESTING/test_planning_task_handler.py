@@ -60,7 +60,20 @@ def run_planning_task(
         f"but got '{result.data['category']}' "
         f"for goal: {goal}"
     )
+
+    assert result.data["overview"] == (
+        f"{expected_category.title()} planning request identified: {goal}"
+    )
+
     assert isinstance(result.data["recommended_steps"], list)
+
+    assert isinstance(result.data["risks"], list)
+    assert result.data["risks"] == [
+        "No constraints were specified.",
+        "Undefined scope may cause planning drift.",
+        "Missing target outcome may make success harder to verify.",
+    ]
+
     assert isinstance(result.data["success_criteria"], list)
     assert result.data["success_criteria"] == [
         "Planning goal has been documented.",
@@ -74,6 +87,7 @@ def run_planning_task(
         "Project priority was not provided.",
         "Target outcome was not provided.",
     ]
+
     assert len(result.data["recommended_steps"]) == 5
     assert all(
         isinstance(step, str)

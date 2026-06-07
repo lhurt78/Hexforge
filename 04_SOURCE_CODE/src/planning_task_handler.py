@@ -51,7 +51,9 @@ class PlanningTaskHandler(TaskHandler):
         constraints_summary = constraints.copy()
 
         risks = self._build_risks(
-            constraints=constraints
+            constraints=constraints,
+            scope=scope,
+            target_outcome=target_outcome,
         )
 
         success_criteria = self._build_success_criteria(
@@ -328,6 +330,8 @@ class PlanningTaskHandler(TaskHandler):
     def _build_risks(
         self,
         constraints: list[str],
+        scope: str | None,
+        target_outcome: str | None,
     ) -> list[str]:
         risks = []
 
@@ -338,6 +342,16 @@ class PlanningTaskHandler(TaskHandler):
         else:
             risks.append(
                 "No constraints were specified."
+            )
+
+        if scope is None:
+            risks.append(
+                "Undefined scope may cause planning drift."
+            )
+
+        if target_outcome is None:
+            risks.append(
+                "Missing target outcome may make success harder to verify."
             )
 
         return risks
