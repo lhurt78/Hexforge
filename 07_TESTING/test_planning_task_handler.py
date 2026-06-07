@@ -102,10 +102,10 @@ def run_planning_task(
 
     assert isinstance(result.data["planning_assumptions"], list)
     assert result.data["planning_assumptions"] == [
-        "Project scope was not provided.",
-        "Project constraints were not provided.",
-        "Project priority was not provided.",
-        "Target outcome was not provided.",
+        "No project scope was provided.",
+        "No project constraints were provided.",
+        "No project priority was provided.",
+        "No target outcome was provided.",
     ]
 
     assert len(result.data["recommended_steps"]) == 5

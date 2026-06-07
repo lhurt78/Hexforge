@@ -402,22 +402,22 @@ class PlanningTaskHandler(TaskHandler):
 
         if scope is None:
             assumptions.append(
-                "Project scope was not provided."
+                "No project scope was provided."
             )
 
         if not constraints:
             assumptions.append(
-                "Project constraints were not provided."
+                "No project constraints were provided."
             )
 
         if priority is None:
             assumptions.append(
-                "Project priority was not provided."
+                "No project priority was provided."
             )
 
         if target_outcome is None:
             assumptions.append(
-                "Target outcome was not provided."
+                "No target outcome was provided."
             )
 
         return assumptions
