@@ -70,10 +70,8 @@ class PlanningTaskHandler(TaskHandler):
             target_outcome=target_outcome,
         )
 
-        next_action = (
-            recommended_steps[0]
-            if recommended_steps
-            else None
+        next_action = self._build_next_action(
+            recommended_steps=recommended_steps
         )
 
         return TaskResult(
@@ -283,6 +281,15 @@ class PlanningTaskHandler(TaskHandler):
             category,
             category_steps["general"],
         )
+
+    def _build_next_action(
+        self,
+        recommended_steps: list[str],
+    ) -> str | None:
+        if not recommended_steps:
+            return None
+
+        return recommended_steps[0]
 
     def _build_overview(
         self,
