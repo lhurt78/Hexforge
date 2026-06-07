@@ -74,6 +74,9 @@ def run_planning_task(
         "Missing target outcome may make success harder to verify.",
     ]
 
+    assert isinstance(result.data["constraints_summary"], list)
+    assert result.data["constraints_summary"] == []
+
     assert isinstance(result.data["success_criteria"], list)
     assert result.data["success_criteria"] == [
         "Planning goal has been documented.",

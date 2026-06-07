@@ -79,6 +79,12 @@ assert result.data["constraints"] == [
     "One location.",
 ]
 
+assert result.data["constraints_summary"] == [
+    "Budget under $500.",
+    "Two actors.",
+    "One location.",
+]
+
 assert result.data["risks"] == [
     "Project constraints may limit execution options."
 ]
