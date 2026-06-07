@@ -36,11 +36,27 @@ class PlanningTaskHandler(TaskHandler):
 
         category = self._determine_category(goal)
         recommended_steps = self._get_recommended_steps(category)
-        planning_notes = self._build_planning_notes(
-            scope=scope,
-            constraints=constraints,
-            priority=priority,
-            target_outcome=target_outcome,
+        planning_notes = self._build_planning_notes( 
+            scope=scope, 
+            constraints=constraints, 
+            priority=priority, 
+            target_outcome=target_outcome, 
+        )
+
+        overview = (
+            f"Planning goal categorized as {category}."
+        )
+
+        constraints_summary = constraints.copy()
+
+        risks = self._build_risks(
+            constraints=constraints
+        )
+
+        next_action = (
+            recommended_steps[0]
+            if recommended_steps
+            else None
         )
 
         return TaskResult(
@@ -48,13 +64,22 @@ class PlanningTaskHandler(TaskHandler):
             success=True,
             message="Planning task completed.",
             data={
+                "overview": overview,
+
                 "goal": goal,
                 "category": category,
+
                 "scope": scope,
                 "constraints": constraints,
                 "priority": priority,
                 "target_outcome": target_outcome,
+
                 "recommended_steps": recommended_steps,
+
+                "constraints_summary": constraints_summary,
+                "risks": risks,
+                "next_action": next_action,
+
                 "planning_notes": planning_notes,
             },
         )
@@ -275,3 +300,20 @@ class PlanningTaskHandler(TaskHandler):
             )
 
         return notes
+
+    def _build_risks(
+        self,
+        constraints: list[str],
+    ) -> list[str]:
+        risks = []
+
+        if constraints:
+            risks.append(
+                "Project constraints may limit execution options."
+            )
+        else:
+            risks.append(
+                "No constraints were specified."
+            )
+
+        return risks
