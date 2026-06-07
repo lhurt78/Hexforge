@@ -36,11 +36,11 @@ class PlanningTaskHandler(TaskHandler):
 
         category = self._determine_category(goal)
         recommended_steps = self._get_recommended_steps(category)
-        planning_notes = self._build_planning_notes( 
-            scope=scope, 
-            constraints=constraints, 
-            priority=priority, 
-            target_outcome=target_outcome, 
+        planning_notes = self._build_planning_notes(
+            scope=scope,
+            constraints=constraints,
+            priority=priority,
+            target_outcome=target_outcome,
         )
 
         overview = self._build_overview(
