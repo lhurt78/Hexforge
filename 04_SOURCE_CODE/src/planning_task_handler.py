@@ -54,7 +54,8 @@ class PlanningTaskHandler(TaskHandler):
         )
 
         success_criteria = self._build_success_criteria(
-            target_outcome=target_outcome
+            scope=scope,
+            target_outcome=target_outcome,
         )
 
         planning_assumptions = self._build_planning_assumptions(
@@ -333,12 +334,18 @@ class PlanningTaskHandler(TaskHandler):
 
     def _build_success_criteria(
         self,
+        scope: str | None,
         target_outcome: str | None,
     ) -> list[str]:
         criteria = [
             "Planning goal has been documented.",
             "Recommended execution steps have been generated.",
         ]
+
+        if scope:
+            criteria.append(
+                "Project scope has been documented."
+            )
 
         if target_outcome:
             criteria.append(

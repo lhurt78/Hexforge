@@ -62,7 +62,10 @@ def run_planning_task(
     )
     assert isinstance(result.data["recommended_steps"], list)
     assert isinstance(result.data["success_criteria"], list)
-    assert len(result.data["success_criteria"]) >= 2
+    assert result.data["success_criteria"] == [
+        "Planning goal has been documented.",
+        "Recommended execution steps have been generated.",
+    ]
 
     assert isinstance(result.data["planning_assumptions"], list)
     assert result.data["planning_assumptions"] == [

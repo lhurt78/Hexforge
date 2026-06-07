@@ -86,6 +86,7 @@ assert len(
 assert result.data["success_criteria"] == [
     "Planning goal has been documented.",
     "Recommended execution steps have been generated.",
+    "Project scope has been documented.",
     "Target outcome has been documented.",
 ]
 
