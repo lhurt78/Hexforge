@@ -42,6 +42,14 @@ task = Task(
     task_type="planning_task",
     payload={
         "goal": "Create a short film production plan.",
+        "scope": "15 minute horror short.",
+        "constraints": [
+            "Budget under $500.",
+            "Two actors.",
+            "One location.",
+        ],
+        "priority": "high",
+        "target_outcome": "Shoot-ready production plan.",
     },
 )
 
@@ -55,10 +63,30 @@ assert result.data["goal"] == (
 )
 
 assert result.data["category"] == "film"
+assert result.data["scope"] == "15 minute horror short."
+assert result.data["priority"] == "high"
+assert result.data["target_outcome"] == (
+    "Shoot-ready production plan."
+)
+
+assert result.data["constraints"] == [
+    "Budget under $500.",
+    "Two actors.",
+    "One location.",
+]
 
 assert len(
     result.data["recommended_steps"]
 ) == 5
+
+assert len(
+    result.data["planning_notes"]
+) == 4
+
+assert (
+    "Constraints must shape the first executable plan."
+    in result.data["planning_notes"]
+)
 
 assert task.status == "completed"
 

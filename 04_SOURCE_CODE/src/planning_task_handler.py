@@ -21,13 +21,27 @@ class PlanningTaskHandler(TaskHandler):
             )
 
         goal = task.payload["goal"].strip()
-        scope = task.payload.get("scope")
-        constraints = task.payload.get("constraints", [])
-        priority = task.payload.get("priority")
-        target_outcome = task.payload.get("target_outcome")
+        scope = self._clean_optional_string(
+            task.payload.get("scope")
+        )
+        constraints = self._clean_constraints(
+            task.payload.get("constraints", [])
+        )
+        priority = self._clean_optional_string(
+            task.payload.get("priority")
+        )
+        target_outcome = self._clean_optional_string(
+            task.payload.get("target_outcome")
+        )
 
         category = self._determine_category(goal)
         recommended_steps = self._get_recommended_steps(category)
+        planning_notes = self._build_planning_notes(
+            scope=scope,
+            constraints=constraints,
+            priority=priority,
+            target_outcome=target_outcome,
+        )
 
         return TaskResult(
             task_id=task.task_id,
@@ -41,6 +55,7 @@ class PlanningTaskHandler(TaskHandler):
                 "priority": priority,
                 "target_outcome": target_outcome,
                 "recommended_steps": recommended_steps,
+                "planning_notes": planning_notes,
             },
         )
 
@@ -108,6 +123,24 @@ class PlanningTaskHandler(TaskHandler):
             }
 
         return None
+
+    def _clean_optional_string(
+        self,
+        value: str | None,
+    ) -> str | None:
+        if value is None:
+            return None
+
+        return value.strip()
+
+    def _clean_constraints(
+        self,
+        constraints: list[str],
+    ) -> list[str]:
+        return [
+            constraint.strip()
+            for constraint in constraints
+        ]
 
     def _determine_category(
         self,
@@ -206,3 +239,39 @@ class PlanningTaskHandler(TaskHandler):
             category,
             category_steps["general"],
         )
+
+    def _build_planning_notes(
+        self,
+        scope: str | None,
+        constraints: list[str],
+        priority: str | None,
+        target_outcome: str | None,
+    ) -> list[str]:
+        notes = []
+
+        if scope:
+            notes.append(
+                f"Scope defined: {scope}"
+            )
+
+        if constraints:
+            notes.append(
+                "Constraints must shape the first executable plan."
+            )
+
+        if priority:
+            notes.append(
+                f"Priority level: {priority}"
+            )
+
+        if target_outcome:
+            notes.append(
+                f"Target outcome: {target_outcome}"
+            )
+
+        if not notes:
+            notes.append(
+                "No optional planning details were provided."
+            )
+
+        return notes
