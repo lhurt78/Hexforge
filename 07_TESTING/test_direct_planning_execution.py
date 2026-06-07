@@ -125,7 +125,7 @@ assert result.data["success_criteria"] == [
 assert result.data["planning_assumptions"] == []
 
 assert (
-    "Constraints must shape the first executable plan."
+    "Constraints should be reviewed before execution begins."
     in result.data["planning_notes"]
 )
 

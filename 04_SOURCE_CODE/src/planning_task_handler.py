@@ -315,27 +315,27 @@ class PlanningTaskHandler(TaskHandler):
 
         if scope:
             notes.append(
-                f"Scope defined: {scope}"
+                "Scope should be used to limit the planning response."
             )
 
         if constraints:
             notes.append(
-                "Constraints must shape the first executable plan."
+                "Constraints should be reviewed before execution begins."
             )
 
         if priority:
             notes.append(
-                f"Priority level: {priority}"
+                "Priority should influence which step is handled first."
             )
 
         if target_outcome:
             notes.append(
-                f"Target outcome: {target_outcome}"
+                "Target outcome should be used to verify completion."
             )
 
         if not notes:
             notes.append(
-                "No optional planning details were provided."
+                "No supplemental planning notes were generated."
             )
 
         return notes
