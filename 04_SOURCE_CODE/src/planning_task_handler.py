@@ -10,18 +10,23 @@ class PlanningTaskHandler(TaskHandler):
         self,
         task: Task,
     ) -> TaskResult:
-        goal = task.payload.get("goal")
+        validation_error = self._validate_payload(task.payload)
 
-        if not isinstance(goal, str) or not goal.strip():
+        if validation_error is not None:
             return TaskResult(
                 task_id=task.task_id,
                 success=False,
-                message="Planning task requires a goal.",
-                error="missing_goal",
+                message=validation_error["message"],
+                error=validation_error["error"],
             )
 
-        clean_goal = goal.strip()
-        category = self._determine_category(clean_goal)
+        goal = task.payload["goal"].strip()
+        scope = task.payload.get("scope")
+        constraints = task.payload.get("constraints", [])
+        priority = task.payload.get("priority")
+        target_outcome = task.payload.get("target_outcome")
+
+        category = self._determine_category(goal)
         recommended_steps = self._get_recommended_steps(category)
 
         return TaskResult(
@@ -29,11 +34,80 @@ class PlanningTaskHandler(TaskHandler):
             success=True,
             message="Planning task completed.",
             data={
-                "goal": clean_goal,
+                "goal": goal,
                 "category": category,
+                "scope": scope,
+                "constraints": constraints,
+                "priority": priority,
+                "target_outcome": target_outcome,
                 "recommended_steps": recommended_steps,
             },
         )
+
+    def _validate_payload(
+        self,
+        payload: dict,
+    ) -> dict | None:
+        goal = payload.get("goal")
+
+        if not isinstance(goal, str) or not goal.strip():
+            return {
+                "message": "Planning task requires a goal.",
+                "error": "missing_goal",
+            }
+
+        scope = payload.get("scope")
+
+        if scope is not None and not isinstance(scope, str):
+            return {
+                "message": "Planning task scope must be a string.",
+                "error": "invalid_scope",
+            }
+
+        constraints = payload.get("constraints")
+
+        if constraints is not None:
+            if not isinstance(constraints, list):
+                return {
+                    "message": "Planning task constraints must be a list.",
+                    "error": "invalid_constraints",
+                }
+
+            for constraint in constraints:
+                if (
+                    not isinstance(constraint, str)
+                    or not constraint.strip()
+                ):
+                    return {
+                        "message": (
+                            "Planning task constraints must contain "
+                            "non-empty strings."
+                        ),
+                        "error": "invalid_constraints",
+                    }
+
+        priority = payload.get("priority")
+
+        if priority is not None and not isinstance(priority, str):
+            return {
+                "message": "Planning task priority must be a string.",
+                "error": "invalid_priority",
+            }
+
+        target_outcome = payload.get("target_outcome")
+
+        if (
+            target_outcome is not None
+            and not isinstance(target_outcome, str)
+        ):
+            return {
+                "message": (
+                    "Planning task target_outcome must be a string."
+                ),
+                "error": "invalid_target_outcome",
+            }
+
+        return None
 
     def _determine_category(
         self,
