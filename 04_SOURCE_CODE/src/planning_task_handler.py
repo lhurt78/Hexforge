@@ -53,6 +53,15 @@ class PlanningTaskHandler(TaskHandler):
             constraints=constraints
         )
 
+        success_criteria = self._build_success_criteria(
+            target_outcome=target_outcome
+        )
+
+        planning_assumptions = self._build_planning_assumptions(
+            scope=scope,
+            target_outcome=target_outcome,
+        )
+
         next_action = (
             recommended_steps[0]
             if recommended_steps
@@ -80,6 +89,8 @@ class PlanningTaskHandler(TaskHandler):
                 "risks": risks,
                 "next_action": next_action,
 
+                "success_criteria": success_criteria,
+                "planning_assumptions": planning_assumptions,
                 "planning_notes": planning_notes,
             },
         )
@@ -317,3 +328,38 @@ class PlanningTaskHandler(TaskHandler):
             )
 
         return risks
+
+    def _build_success_criteria(
+        self,
+        target_outcome: str | None,
+    ) -> list[str]:
+        criteria = [
+            "Planning goal has been documented.",
+            "Recommended execution steps have been generated.",
+        ]
+
+        if target_outcome:
+            criteria.append(
+                "Target outcome has been documented."
+            )
+
+        return criteria
+
+    def _build_planning_assumptions(
+        self,
+        scope: str | None,
+        target_outcome: str | None,
+    ) -> list[str]:
+        assumptions = []
+
+        if scope is None:
+            assumptions.append(
+                "Project scope was not provided."
+            )
+
+        if target_outcome is None:
+            assumptions.append(
+                "Target outcome was not provided."
+            )
+
+        return assumptions

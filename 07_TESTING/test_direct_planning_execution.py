@@ -83,6 +83,14 @@ assert len(
     result.data["planning_notes"]
 ) == 4
 
+assert result.data["success_criteria"] == [
+    "Planning goal has been documented.",
+    "Recommended execution steps have been generated.",
+    "Target outcome has been documented.",
+]
+
+assert result.data["planning_assumptions"] == []
+
 assert (
     "Constraints must shape the first executable plan."
     in result.data["planning_notes"]

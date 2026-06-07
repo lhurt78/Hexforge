@@ -61,6 +61,10 @@ def run_planning_task(
         f"for goal: {goal}"
     )
     assert isinstance(result.data["recommended_steps"], list)
+    assert isinstance(result.data["success_criteria"], list)
+    assert len(result.data["success_criteria"]) >= 2
+
+    assert isinstance(result.data["planning_assumptions"], list)
     assert len(result.data["recommended_steps"]) == 5
     assert all(
         isinstance(step, str)
