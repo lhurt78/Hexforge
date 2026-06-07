@@ -22,23 +22,23 @@ It should be read together with:
 
 ## Current Phase
 
-Phase 10 - First Production Planning Handler
+Phase 11 - Controlled Planning Output Expansion
 
 ## Current Task
 
-Phase 10.10 - Phase 10 Checkpoint
+Phase 11.10 - Phase 11 Checkpoint
 
 ## Last Completed Task
 
-Phase 10.9 - Enrich Planning Output
+Phase 11.9 - Planning Output Schema Validation
 
 ## Next Phase
 
-Phase 11 - Controlled Planning Output Expansion
+Phase 12 - Controlled Planning Result Refinement
 
 ## Next Task
 
-Phase 11.1 - Evaluate Structured Planning Sections
+Phase 12.1 - Evaluate Planning Output Refinement Targets
 
 ---
 
@@ -211,7 +211,49 @@ Planning payload now supports:
     "scope": "...",
     "constraints": [...],
     "priority": "...",
-    "target_outcome": "..."
+    "target_outcome": "...",
+}
+```
+
+---
+
+# Phase 11 Summary
+
+Completed:
+
+* structured planning output sections
+* overview output
+* constraints_summary output
+* risks output
+* next_action output
+* success_criteria output
+* planning_assumptions output
+* overview validation
+* constraints_summary validation
+* risks validation
+* next_action validation
+* success_criteria validation
+* planning_assumptions validation
+* full planning output schema validation
+
+Planning output now supports:
+
+```python
+{
+    "overview": "...",
+    "goal": "...",
+    "category": "...",
+    "scope": "...",
+    "constraints": [...],
+    "priority": "...",
+    "target_outcome": "...",
+    "recommended_steps": [...],
+    "constraints_summary": [...],
+    "risks": [...],
+    "next_action": "...",
+    "success_criteria": [...],
+    "planning_assumptions": [...],
+    "planning_notes": [...],
 }
 ```
 
@@ -375,22 +417,17 @@ The following remain intentionally deferred:
 
 # Next Task
 
-## Phase 11.1 - Evaluate Structured Planning Sections
+## Phase 12.1 - Evaluate Planning Output Refinement Targets
 
 Purpose:
 
-* expand planning output structure
+* review current planning output structure
+* identify redundant planning fields
+* identify missing deterministic planning fields
 * preserve controlled planning behavior
-* avoid AI/model execution
+* avoid AI reasoning
 * avoid persistence changes
-
-Likely future output sections:
-
-* overview
-* recommended_steps
-* constraints_summary
-* risks
-* next_action
+* avoid architecture changes
 
 ---
 
