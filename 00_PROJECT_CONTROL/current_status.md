@@ -22,23 +22,23 @@ It should be read together with:
 
 ## Current Phase
 
-Phase 8 - Controlled Task Execution Foundation
+Phase 10 - First Production Planning Handler
 
 ## Current Task
 
-Phase 8.10 - Phase 8 Foundation Checkpoint
+Phase 10.10 - Phase 10 Checkpoint
 
 ## Last Completed Task
 
-Phase 8.9 - Handler Registry Planning
+Phase 10.9 - Enrich Planning Output
 
 ## Next Phase
 
-Phase 8 - Controlled Task Execution Foundation
+Phase 11 - Controlled Planning Output Expansion
 
 ## Next Task
 
-Phase 8.11 - Implement Lightweight HandlerRegistry
+Phase 11.1 - Evaluate Structured Planning Sections
 
 ---
 
@@ -46,7 +46,7 @@ Phase 8.11 - Implement Lightweight HandlerRegistry
 
 Hexforge is being built as a controlled local AI-assisted production platform for creative and technical workflows.
 
-Current development is focused on defining controlled task execution boundaries before higher-level AI behavior, autonomous systems, model execution, or project orchestration are introduced.
+Current development is focused on controlled task execution and structured planning behavior before introducing higher-level AI behavior, model execution, autonomous systems, persistence expansion, or project orchestration.
 
 ---
 
@@ -91,11 +91,14 @@ There must not be a nested runtime source folder such as:
 * `runtime_events.py` owns listener functions
 * `StateManager` owns runtime state coordination
 * `TaskRouter` owns task route registration and route resolution
+* `HandlerRegistry` owns handler registration and lookup
+* `TaskExecutor` owns task execution coordination
 * `ServiceManager` owns service name/status tracking
 * `ModuleRegistry` remains static metadata only
 * `Task` defines structured task data
 * `TaskResult` defines structured task outcome data
-* `TaskHandler` defines the future task handler interface
+* `TaskHandler` defines task handler interface
+* `PlanningTaskHandler` provides structured planning behavior
 * `RuntimeContext` remains conceptual and deferred
 * persistence ownership remains decentralized
 * async execution remains deferred
@@ -128,6 +131,10 @@ task_route_registered
 task_route_resolved
 task_route_missing
 
+task_execution_started
+task_execution_completed
+task_execution_failed
+
 service_registered
 service_started
 service_stopped
@@ -139,43 +146,74 @@ service_stop_failed
 
 # Phase 7 Summary
 
-Phase 7 expanded runtime coordination beyond `StateManager`.
-
 Completed:
 
-* `TaskRouter` event coordination
-* `ServiceManager` event coordination
+* TaskRouter event coordination
+* ServiceManager event coordination
 * state save failure event fix
 * runtime coordination summary logging
 * removal of validation-only startup behavior
 * targeted validation scripts for coordination events
 * RuntimeContext evaluation and deferral
 
-Phase 7 confirmed that RuntimeContext is not currently justified.
-
 ---
 
 # Phase 8 Summary
 
-Phase 8 began the controlled task execution foundation.
+Completed:
+
+* Task execution foundation planning
+* Task data model
+* TaskResult data model
+* TaskHandler interface
+* HandlerRegistry planning
+* task execution ownership definition
+
+Important correction completed:
+
+* accidental nested folder `04_SOURCE_CODE/src/src/` removed
+* task handler files relocated correctly
+
+---
+
+# Phase 9 Summary
 
 Completed:
 
-* 8.1 - Task execution foundation planning
-* 8.2 - Defined `Task` data model
-* 8.3 - Added task model validation script
-* 8.4 - Defined `TaskResult` data model
-* 8.5 - Added task result validation script
-* 8.6 - Defined task handler boundary
-* 8.7 - Defined `TaskHandler` interface
-* 8.8 - Added task handler interface validation script
-* 8.9 - Planned future `HandlerRegistry`
+* HandlerRegistry
+* TaskExecutor
+* startup assembly integration
+* EchoTaskHandler
+* task execution events
+* task execution event validation
 
-Important correction completed during Phase 8:
+---
 
-* accidental nested folder `04_SOURCE_CODE/src/src/` was detected
-* `task_handler.py` was moved to correct location
-* invalid nested source folder was removed
+# Phase 10 Summary
+
+Completed:
+
+* PlanningTaskHandler
+* startup registration for planning_task
+* dynamic planning categories
+* planning payload structure document
+* planning payload validation
+* planning payload validation tests
+* enriched planning output
+* direct planning execution validation
+* startup task execution assembly validation
+
+Planning payload now supports:
+
+```python
+{
+    "goal": "...",
+    "scope": "...",
+    "constraints": [...],
+    "priority": "...",
+    "target_outcome": "..."
+}
+```
 
 ---
 
@@ -188,11 +226,15 @@ Important correction completed during Phase 8:
 04_SOURCE_CODE/src/runtime_events.py
 04_SOURCE_CODE/src/state_manager.py
 04_SOURCE_CODE/src/task_router.py
+04_SOURCE_CODE/src/handler_registry.py
+04_SOURCE_CODE/src/task_executor.py
 04_SOURCE_CODE/src/service_manager.py
 04_SOURCE_CODE/src/module_registry.py
 04_SOURCE_CODE/src/task.py
 04_SOURCE_CODE/src/task_result.py
 04_SOURCE_CODE/src/task_handler.py
+04_SOURCE_CODE/src/echo_task_handler.py
+04_SOURCE_CODE/src/planning_task_handler.py
 ```
 
 ---
@@ -200,13 +242,20 @@ Important correction completed during Phase 8:
 # Current Testing Files
 
 ```txt
-04_SOURCE_CODE/src/event_system_test.py
 07_TESTING/test_task_router_events.py
 07_TESTING/test_service_manager_events.py
 07_TESTING/test_state_save_failure_event.py
 07_TESTING/test_task_model.py
 07_TESTING/test_task_result_model.py
 07_TESTING/test_task_handler_interface.py
+07_TESTING/test_handler_registry.py
+07_TESTING/test_task_executor.py
+07_TESTING/test_task_executor_events.py
+07_TESTING/test_echo_task_handler_execution.py
+07_TESTING/test_startup_task_execution_assembly.py
+07_TESTING/test_planning_task_handler.py
+07_TESTING/test_direct_planning_execution.py
+07_TESTING/test_planning_payload_validation.py
 ```
 
 ---
@@ -218,6 +267,7 @@ Important correction completed during Phase 8:
 03_DEVELOPMENT/phase_8_1_task_execution_foundation_planning.md
 03_DEVELOPMENT/phase_8_6_task_handler_boundary.md
 03_DEVELOPMENT/phase_8_9_handler_registry_planning.md
+03_DEVELOPMENT/phase_10_6_planning_request_structure.md
 ```
 
 ---
@@ -238,6 +288,39 @@ Does not own:
 * task execution
 * task results
 * manager coordination
+* service orchestration
+
+## HandlerRegistry
+
+Owns:
+
+* handler registration
+* handler lookup
+* handler name mapping
+
+Does not own:
+
+* task execution
+* dependency injection
+* service orchestration
+
+## TaskExecutor
+
+Owns:
+
+* task execution coordination
+* route resolution
+* handler lookup
+* handler invocation
+* task execution events
+* TaskResult return flow
+
+Does not own:
+
+* route registration
+* handler registration
+* persistence
+* autonomous execution
 * service orchestration
 
 ## Task
@@ -269,23 +352,7 @@ Owns:
 
 Defines:
 
-* abstract `handle(task: Task) -> TaskResult`
-
-Does not yet define real runtime behavior.
-
-## Future HandlerRegistry
-
-Planned responsibility:
-
-* map handler name to handler object
-
-Must not become:
-
-* dependency container
-* executor
-* service manager
-* runtime context
-* autonomous system
+* handle(task: Task) -> TaskResult
 
 ---
 
@@ -293,7 +360,7 @@ Must not become:
 
 The following remain intentionally deferred:
 
-* `RuntimeContext`
+* RuntimeContext
 * dependency container
 * async execution
 * autonomous task processing
@@ -308,29 +375,22 @@ The following remain intentionally deferred:
 
 # Next Task
 
-## Phase 8.11 - Implement Lightweight HandlerRegistry
+## Phase 11.1 - Evaluate Structured Planning Sections
 
 Purpose:
 
-* create a minimal registry for task handler objects
-* allow handler lookup by handler name
-* keep `TaskRouter` routing-only
-* avoid dependency container behavior
-* avoid task execution behavior
+* expand planning output structure
+* preserve controlled planning behavior
+* avoid AI/model execution
+* avoid persistence changes
 
-Expected file:
+Likely future output sections:
 
-```txt
-04_SOURCE_CODE/src/handler_registry.py
-```
-
-Expected validation file:
-
-```txt
-07_TESTING/test_handler_registry.py
-```
-
-Runtime validation will be required after implementation.
+* overview
+* recommended_steps
+* constraints_summary
+* risks
+* next_action
 
 ---
 
@@ -343,18 +403,7 @@ At the start of the next Hexforge thread, upload:
 00_PROJECT_CONTROL/project_operating_rules.md
 ```
 
-Then upload only files required for the active task.
-
-For Phase 8.11, likely required files are:
-
-```txt
-04_SOURCE_CODE/src/task.py
-04_SOURCE_CODE/src/task_result.py
-04_SOURCE_CODE/src/task_handler.py
-04_SOURCE_CODE/src/task_router.py
-04_SOURCE_CODE/src/event_system.py
-04_SOURCE_CODE/src/startup.py
-```
+Then upload only files directly related to the active task.
 
 ---
 
@@ -368,5 +417,9 @@ The next thread should:
 * verify only files directly related to the active task
 * avoid broad re-verification
 * preserve ownership boundaries
-* keep `TaskRouter` routing-only
-* keep `RuntimeContext` deferred unless a real need is demonstrated
+* keep RuntimeContext deferred unless a real need is demonstrated
+* keep task execution controlled and non-autonomous
+* avoid introducing model execution without explicit planning
+
+```
+```
