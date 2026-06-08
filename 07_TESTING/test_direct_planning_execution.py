@@ -54,6 +54,10 @@ task = Task(
 )
 
 result = task_executor.execute(task)
+print("RESULT SUCCESS:", result.success)
+print("RESULT MESSAGE:", result.message)
+print("RESULT ERROR:", result.error)
+print("RESULT DATA:", result.data)
 
 assert result.success is True
 assert result.message == "Planning task completed."
@@ -66,7 +70,6 @@ assert set(result.data.keys()) == {
     "priority",
     "target_outcome",
     "recommended_steps",
-    "constraints_summary",
     "risks",
     "next_action",
     "success_criteria",
@@ -95,10 +98,6 @@ assert result.data["constraints"] == [
     "Two actors.",
     "One location.",
 ]
-
-assert result.data["constraints_summary"] == (
-    "3 constraints specified."
-)
 
 assert result.data["risks"] == [
     "Defined constraints may limit available execution options."

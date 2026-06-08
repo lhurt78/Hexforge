@@ -51,7 +51,7 @@ def run_planning_task(
     )
 
     result = task_executor.execute(task)
-
+    
     assert result.success is True
     assert result.message == "Planning task completed."
     assert set(result.data.keys()) == {
@@ -63,7 +63,6 @@ def run_planning_task(
     "priority",
     "target_outcome",
     "recommended_steps",
-    "constraints_summary",
     "risks",
     "next_action",
     "success_criteria",
@@ -89,10 +88,6 @@ def run_planning_task(
         "Missing scope may cause planning drift.",
         "Missing target outcome may make completion harder to verify.",
     ]
-
-    assert result.data["constraints_summary"] == (
-        "No constraints specified."
-    )
 
     assert isinstance(result.data["success_criteria"], list)
     assert result.data["success_criteria"] == [
