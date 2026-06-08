@@ -292,3 +292,32 @@ assert cleanup_result.data["target_outcome"] == (
 )
 
 assert cleanup_task.status == "completed"
+
+planning_notes_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "Create a short film production plan.",
+        "scope": "15 minute horror short.",
+        "constraints": [
+            "Budget under $500.",
+            "Two actors.",
+        ],
+        "priority": "high",
+        "target_outcome": "Shoot-ready plan.",
+    },
+)
+
+planning_notes_result = task_executor.execute(
+    planning_notes_task
+)
+
+assert planning_notes_result.success is True
+
+assert planning_notes_result.data["planning_notes"] == [
+    "Scope should be used to limit the planning response.",
+    "Constraints should be reviewed before execution begins.",
+    "Priority should influence which step is handled first.",
+    "Target outcome should be used to verify completion.",
+]
+
+assert planning_notes_task.status == "completed"
