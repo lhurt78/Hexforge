@@ -54,10 +54,6 @@ task = Task(
 )
 
 result = task_executor.execute(task)
-print("RESULT SUCCESS:", result.success)
-print("RESULT MESSAGE:", result.message)
-print("RESULT ERROR:", result.error)
-print("RESULT DATA:", result.data)
 
 assert result.success is True
 assert result.message == "Planning task completed."

@@ -187,3 +187,57 @@ assert empty_goal_result.error == "missing_goal"
 assert empty_goal_task.status == "failed"
 
 print("PlanningTaskHandler validation passed.")
+
+invalid_payload_cases = [
+    (
+        {
+            "goal": "Plan a project.",
+            "scope": 123,
+        },
+        "invalid_scope",
+    ),
+    (
+        {
+            "goal": "Plan a project.",
+            "constraints": "keep it small",
+        },
+        "invalid_constraints",
+    ),
+    (
+        {
+            "goal": "Plan a project.",
+            "constraints": [
+                "",
+            ],
+        },
+        "invalid_constraints",
+    ),
+    (
+        {
+            "goal": "Plan a project.",
+            "priority": 10,
+        },
+        "invalid_priority",
+    ),
+    (
+        {
+            "goal": "Plan a project.",
+            "target_outcome": [
+                "finished",
+            ],
+        },
+        "invalid_target_outcome",
+    ),
+]
+
+for payload, expected_error in invalid_payload_cases:
+    invalid_task = Task(
+        task_type="planning_task",
+        payload=payload,
+    )
+
+    invalid_result = task_executor.execute(invalid_task)
+
+    assert invalid_result.success is False
+    assert invalid_result.error == expected_error
+    assert invalid_task.status == "failed"
