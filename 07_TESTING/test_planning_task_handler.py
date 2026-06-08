@@ -241,3 +241,46 @@ for payload, expected_error in invalid_payload_cases:
     assert invalid_result.success is False
     assert invalid_result.error == expected_error
     assert invalid_task.status == "failed"
+
+cleanup_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "  Create a software utility.  ",
+        "scope": "  Small internal tool.  ",
+        "constraints": [
+            "  No database.  ",
+            "  Local only.  ",
+        ],
+        "priority": "  medium  ",
+        "target_outcome": "  Working prototype.  ",
+    },
+)
+
+cleanup_result = task_executor.execute(
+    cleanup_task
+)
+
+assert cleanup_result.success is True
+
+assert cleanup_result.data["goal"] == (
+    "Create a software utility."
+)
+
+assert cleanup_result.data["scope"] == (
+    "Small internal tool."
+)
+
+assert cleanup_result.data["constraints"] == [
+    "No database.",
+    "Local only.",
+]
+
+assert cleanup_result.data["priority"] == (
+    "medium"
+)
+
+assert cleanup_result.data["target_outcome"] == (
+    "Working prototype."
+)
+
+assert cleanup_task.status == "completed"
