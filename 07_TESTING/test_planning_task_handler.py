@@ -150,8 +150,16 @@ test_cases = [
         "Organize a community project.",
         "general",
     ),
-    (
+        (
         "Plan a household cleanup.",
+        "general",
+    ),
+    (
+        "Create a screenplayish document.",
+        "general",
+    ),
+    (
+        "Build a gameplan for chores.",
         "general",
     ),
 ]
