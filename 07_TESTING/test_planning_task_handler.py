@@ -293,6 +293,7 @@ assert cleanup_result.data["target_outcome"] == (
 
 assert cleanup_task.status == "completed"
 
+
 planning_notes_task = Task(
     task_type="planning_task",
     payload={
@@ -321,3 +322,51 @@ assert planning_notes_result.data["planning_notes"] == [
 ]
 
 assert planning_notes_task.status == "completed"
+
+missing_assumptions_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "Plan a project.",
+        "scope": "Defined scope.",
+        "constraints": [
+            "Defined constraint.",
+        ],
+    },
+)
+
+missing_assumptions_result = task_executor.execute(
+    missing_assumptions_task
+)
+
+assert missing_assumptions_result.success is True
+
+assert missing_assumptions_result.data["planning_assumptions"] == [
+    "No project priority was provided.",
+    "No target outcome was provided.",
+]
+
+assert missing_assumptions_task.status == "completed"
+
+partial_risks_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "Plan a project.",
+        "scope": "Defined scope.",
+        "constraints": [
+            "Defined constraint.",
+        ],
+    },
+)
+
+partial_risks_result = task_executor.execute(
+    partial_risks_task
+)
+
+assert partial_risks_result.success is True
+
+assert partial_risks_result.data["risks"] == [
+    "Defined constraints may limit available execution options.",
+    "Missing target outcome may make completion harder to verify.",
+]
+
+assert partial_risks_task.status == "completed"
