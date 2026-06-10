@@ -370,3 +370,25 @@ assert partial_risks_result.data["risks"] == [
 ]
 
 assert partial_risks_task.status == "completed"
+
+partial_success_criteria_task = Task(
+    task_type="planning_task",
+    payload={
+        "goal": "Plan a project.",
+        "scope": "Defined scope.",
+    },
+)
+
+partial_success_criteria_result = task_executor.execute(
+    partial_success_criteria_task
+)
+
+assert partial_success_criteria_result.success is True
+
+assert partial_success_criteria_result.data["success_criteria"] == [
+    "The planning goal is clearly documented.",
+    "Recommended execution steps are available.",
+    "Project scope is defined well enough to guide planning.",
+]
+
+assert partial_success_criteria_task.status == "completed"
