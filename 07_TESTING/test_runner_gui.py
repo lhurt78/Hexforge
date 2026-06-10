@@ -32,6 +32,17 @@ class TestRunnerGUI:
             anchor="w",
         )
 
+        self.clear_button = ttk.Button(
+            root,
+            text="Clear Output",
+            command=self.clear_results,
+        )
+        self.clear_button.pack(
+            padx=10,
+            pady=0,
+            anchor="w",
+        )
+
         self.results_tree = ttk.Treeview(
             root,
             columns=(
