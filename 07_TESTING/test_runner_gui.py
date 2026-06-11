@@ -2,10 +2,13 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 from pathlib import Path
+from datetime import datetime
 import sys
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TESTING_PATH = PROJECT_ROOT / "07_TESTING"
+REPORTS_PATH = TESTING_PATH / "test_reports"
+LATEST_REPORT_PATH = REPORTS_PATH / "latest_test_report.txt"
 
 sys.path.insert(0, str(TESTING_PATH))
 
@@ -65,6 +68,17 @@ class TestRunnerGUI:
             command=self.clear_results,
         )
         self.clear_button.pack(
+            padx=10,
+            pady=0,
+            anchor="w",
+        )
+
+        self.export_button = ttk.Button(
+            root,
+            text="Export Report",
+            command=self.export_report,
+        )
+        self.export_button.pack(
             padx=10,
             pady=0,
             anchor="w",
@@ -132,6 +146,8 @@ class TestRunnerGUI:
             pady=10,
             fill="both",
         )
+
+        self.latest_results = []
 
     def run_planning_tests(
         self,
@@ -238,10 +254,74 @@ class TestRunnerGUI:
             text="No tests run."
         )
 
+    def export_report(
+        self,
+    ) -> None:
+        REPORTS_PATH.mkdir(
+            exist_ok=True
+        )
+
+        timestamp = datetime.now().strftime(
+            "%Y-%m-%d %H:%M:%S"
+        )
+
+        report_lines = [
+            "Hexforge Test Report",
+            "====================",
+            f"Generated: {timestamp}",
+            "",
+        ]
+
+        if not self.latest_results:
+            report_lines.append(
+                "No test results available."
+            )
+        else:
+            passed_count = sum(
+                1
+                for result in self.latest_results
+                if result["passed"]
+            )
+
+            report_lines.append(
+                f"Summary: {passed_count}/{len(self.latest_results)} tests passed."
+            )
+            report_lines.append("")
+
+            for result in self.latest_results:
+                status = "PASS" if result["passed"] else "FAIL"
+
+                report_lines.append(
+                    f"{status} | "
+                    f"{result['duration']:.2f}s | "
+                    f"{result['test_path']}"
+                )
+
+                if not result["passed"]:
+                    report_lines.append("")
+                    report_lines.append("STDOUT:")
+                    report_lines.append(result["stdout"])
+                    report_lines.append("")
+                    report_lines.append("STDERR:")
+                    report_lines.append(result["stderr"])
+                    report_lines.append("")
+
+        LATEST_REPORT_PATH.write_text(
+            "\n".join(report_lines),
+            encoding="utf-8",
+        )
+
+        self.output_text.insert(
+            tk.END,
+            f"\nReport exported to: {LATEST_REPORT_PATH}\n",
+        )
+
     def display_results(
         self,
         results: list[dict],
     ) -> None:
+        self.latest_results = results
+
         passed_count = 0
 
         for result in results:

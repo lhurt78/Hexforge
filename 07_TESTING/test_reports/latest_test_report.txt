@@ -1,0 +1,15 @@
+Hexforge Test Report
+====================
+Generated: 2026-06-11 04:50:30
+
+Summary: 9/9 tests passed.
+
+PASS | 0.39s | 07_TESTING/test_planning_task_handler.py
+PASS | 0.24s | 07_TESTING/test_direct_planning_execution.py
+PASS | 0.43s | 07_TESTING/test_startup_planning_registration.py
+PASS | 0.25s | 07_TESTING/test_runtime_planning_execution.py
+PASS | 0.24s | 07_TESTING/test_missing_planning_route.py
+PASS | 0.24s | 07_TESTING/test_missing_planning_handler.py
+PASS | 0.24s | 07_TESTING/test_invalid_planning_payload_execution.py
+PASS | 0.25s | 07_TESTING/test_planning_task_status_transitions.py
+PASS | 0.26s | 07_TESTING/test_planning_task_result_errors.py
