@@ -265,6 +265,10 @@ class TestRunnerGUI:
             "%Y-%m-%d %H:%M:%S"
         )
 
+        filename_timestamp = datetime.now().strftime(
+            "%Y%m%d_%H%M%S"
+        )
+
         report_lines = [
             "Hexforge Test Report",
             "====================",
@@ -306,14 +310,32 @@ class TestRunnerGUI:
                     report_lines.append(result["stderr"])
                     report_lines.append("")
 
+        report_text = "\n".join(
+            report_lines
+        )
+
         LATEST_REPORT_PATH.write_text(
-            "\n".join(report_lines),
+            report_text,
+            encoding="utf-8",
+        )
+
+        timestamped_report_path = (
+            REPORTS_PATH
+            / f"test_report_{filename_timestamp}.txt"
+        )
+
+        timestamped_report_path.write_text(
+            report_text,
             encoding="utf-8",
         )
 
         self.output_text.insert(
             tk.END,
-            f"\nReport exported to: {LATEST_REPORT_PATH}\n",
+            (
+                "\nReport exported:\n"
+                f"{LATEST_REPORT_PATH}\n"
+                f"{timestamped_report_path}\n"
+            ),
         )
 
     def display_results(
