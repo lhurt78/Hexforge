@@ -2,6 +2,7 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 from pathlib import Path
+import os
 from datetime import datetime
 import sys
 
@@ -79,6 +80,18 @@ class TestRunnerGUI:
             command=self.export_report,
         )
         self.export_button.pack(
+            padx=10,
+            pady=0,
+            anchor="w",
+        )
+
+        self.open_reports_button = ttk.Button(
+            root,
+            text="Open Reports Folder",
+            command=self.open_reports_folder,
+        )
+
+        self.open_reports_button.pack(
             padx=10,
             pady=0,
             anchor="w",
@@ -252,6 +265,17 @@ class TestRunnerGUI:
 
         self.summary_label.config(
             text="No tests run."
+        )
+
+    def open_reports_folder(
+        self,
+    ) -> None:
+        REPORTS_PATH.mkdir(
+            exist_ok=True
+        )
+
+        os.startfile(
+            REPORTS_PATH
         )
 
     def export_report(
