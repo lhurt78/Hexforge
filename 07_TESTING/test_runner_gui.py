@@ -9,7 +9,12 @@ TESTING_PATH = PROJECT_ROOT / "07_TESTING"
 
 sys.path.insert(0, str(TESTING_PATH))
 
-from test_runner import PLANNING_TESTS, run_tests
+from test_runner import (
+    PLANNING_TESTS,
+    RUNTIME_TESTS,
+    ALL_TESTS,
+    run_tests,
+) 
 
 
 class TestRunnerGUI:
@@ -32,6 +37,28 @@ class TestRunnerGUI:
             anchor="w",
         )
 
+        self.runtime_button = ttk.Button(
+            root,
+            text="Run Runtime Tests",
+            command=self.run_runtime_tests,
+        )
+        self.runtime_button.pack(
+            padx=10,
+            pady=0,
+            anchor="w",
+        )
+        
+        self.all_button = ttk.Button(
+            root,
+            text="Run All Tests",
+            command=self.run_all_tests,
+        )
+        self.all_button.pack(
+            padx=10,
+            pady=0,
+            anchor="w",
+        )
+        
         self.clear_button = ttk.Button(
             root,
             text="Clear Output",
@@ -124,6 +151,69 @@ class TestRunnerGUI:
             lambda: self.display_results(results),
         )
 
+    def run_runtime_tests(
+        self,
+    ) -> None:
+        self.run_button.config(
+            state="disabled"
+        )
+        self.runtime_button.config(
+            state="disabled"
+        )
+        self.all_button.config(
+            state="disabled"
+        )
+
+        self.clear_results()
+
+        thread = threading.Thread(
+            target=lambda: self._run_specific_tests(
+                RUNTIME_TESTS
+            ),
+            daemon=True,
+        )
+        thread.start()
+
+
+    def run_all_tests(
+        self,
+    ) -> None:
+        self.run_button.config(
+            state="disabled"
+        )
+        self.runtime_button.config(
+            state="disabled"
+        )
+        self.all_button.config(
+            state="disabled"
+        )
+
+        self.clear_results()
+
+        thread = threading.Thread(
+            target=lambda: self._run_specific_tests(
+                ALL_TESTS
+            ),
+            daemon=True,
+        )
+        thread.start()
+
+
+    def _run_specific_tests(
+        self,
+        test_list,
+    ) -> None:
+        results = run_tests(
+            test_list
+        )
+
+        self.root.after(
+            0,
+            lambda: self.display_results(
+                results
+            ),
+        )
+
     def clear_results(
         self,
     ) -> None:
@@ -192,6 +282,13 @@ class TestRunnerGUI:
             state="normal"
         )
 
+        self.runtime_button.config(
+            state="normal"
+        )
+
+        self.all_button.config(
+            state="normal"
+        )
 
 def main() -> None:
     root = tk.Tk()

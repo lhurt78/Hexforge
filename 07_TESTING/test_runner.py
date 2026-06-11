@@ -18,6 +18,24 @@ PLANNING_TESTS = [
     "07_TESTING/test_planning_task_result_errors.py",
 ]
 
+RUNTIME_TESTS = [
+    "07_TESTING/test_startup_planning_registration.py",
+    "07_TESTING/test_runtime_planning_execution.py",
+    "07_TESTING/test_missing_planning_route.py",
+    "07_TESTING/test_missing_planning_handler.py",
+    "07_TESTING/test_invalid_planning_payload_execution.py",
+    "07_TESTING/test_planning_task_status_transitions.py",
+    "07_TESTING/test_planning_task_result_errors.py",
+]
+
+ALL_TESTS = (
+    PLANNING_TESTS +
+    [
+        test
+        for test in RUNTIME_TESTS
+        if test not in PLANNING_TESTS
+    ]
+)
 
 def run_test(
     test_path: str,
