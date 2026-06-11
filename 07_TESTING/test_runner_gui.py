@@ -58,7 +58,7 @@ class TestRunnerGUI:
             pady=0,
             anchor="w",
         )
-        
+
         self.clear_button = ttk.Button(
             root,
             text="Clear Output",
@@ -70,6 +70,15 @@ class TestRunnerGUI:
             anchor="w",
         )
 
+        self.summary_label = ttk.Label(
+            root,
+            text="No tests run.",
+        )
+        self.summary_label.pack(
+            padx=10,
+            pady=5,
+            anchor="w",
+        )
         self.results_tree = ttk.Treeview(
             root,
             columns=(
@@ -225,6 +234,10 @@ class TestRunnerGUI:
             tk.END,
         )
 
+        self.summary_label.config(
+            text="No tests run."
+        )
+
     def display_results(
         self,
         results: list[dict],
@@ -277,6 +290,15 @@ class TestRunnerGUI:
             tk.END,
             f"Summary: {passed_count}/{len(results)} tests passed.\n",
         )
+
+        if passed_count == len(results):
+            self.summary_label.config(
+                text=f"PASS: {passed_count}/{len(results)} tests passed."
+            )
+        else:
+            self.summary_label.config(
+                text=f"FAIL: {passed_count}/{len(results)} tests passed."
+            )
 
         self.run_button.config(
             state="normal"
